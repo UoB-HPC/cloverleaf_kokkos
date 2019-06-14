@@ -24,5 +24,8 @@ struct parallel_ {
   parallel_();
 };
 
+void clover_abort();
+void clover_barrier();
+
 #endif
 

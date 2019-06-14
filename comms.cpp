@@ -3,6 +3,8 @@
 
 #include <mpi.h>
 
+#include <cstdlib>
+
 // Set up parallel structure
 parallel_::parallel_() {
 
@@ -16,7 +18,13 @@ parallel_::parallel_() {
     boss = false;
 
   boss_task = 0;
+}
 
+void clover_abort() {
+  MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+}
 
+void clover_barrier() {
+  MPI_Barrier(MPI_COMM_WORLD);
 }
 

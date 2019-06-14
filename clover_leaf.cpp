@@ -4,8 +4,14 @@
 #include <Kokkos_Core.hpp>
 
 #include <iostream>
+#include <fstream>
 
 #include "comms.h"
+#include "initialise.h"
+#include "version.h"
+
+// Output file handler
+std::ostream g_out(nullptr);
 
 int main(int argc, char *argv[]) {
 
@@ -21,14 +27,14 @@ int main(int argc, char *argv[]) {
   if (parallel.boss) {
     std::cout
       << std::endl
-      << "Clover Version 1.300" << std::endl
+      << "Clover Version " << g_version << std::endl
       << "Kokkos Version" << std::endl
       << "Task Count " << parallel.max_task << std::endl
       << std::endl;
   }
 
 
-  //CALL initialise
+  initialise(parallel);
 
   //CALL hydro
   
