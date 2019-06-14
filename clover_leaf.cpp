@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   Kokkos::initialize();
 
   // Initialise communications
-  struct mpi_info parallel;
+  struct parallel_ parallel;
 
   if (parallel.boss) {
     std::cout

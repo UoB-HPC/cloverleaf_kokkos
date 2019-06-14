@@ -4,7 +4,7 @@
 #include <mpi.h>
 
 // Set up parallel structure
-mpi_info::mpi_info() {
+parallel_::parallel_() {
 
   parallel=true;
   MPI_Comm_rank(MPI_COMM_WORLD, &task);

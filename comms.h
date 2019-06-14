@@ -3,7 +3,7 @@
 #define COMMS_H
 
 // Structure to hold MPI rank information
-struct mpi_info {
+struct parallel_ {
 
   // MPI enabled?
   bool parallel;
@@ -21,7 +21,7 @@ struct mpi_info {
   int boss_task;
 
   // Constructor, (replaces clover_init_comms())
-  mpi_info();
+  parallel_();
 };
 
 #endif
