@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "definitions.h"
 #include "comms.h"
 #include "initialise.h"
 #include "version.h"
@@ -33,8 +34,10 @@ int main(int argc, char *argv[]) {
       << std::endl;
   }
 
+  // Struct to hold many global scope variables, from original definitions.f90
+  global_variables globals;
 
-  initialise(parallel);
+  initialise(parallel, globals);
 
   //CALL hydro
   

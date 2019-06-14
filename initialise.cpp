@@ -2,10 +2,11 @@
 #include "initialise.h"
 #include "report.h"
 #include "version.h"
+#include "read_input.h"
 
 #include <fstream>
 
-void initialise(struct parallel_ &parallel) {
+void initialise(parallel_ &parallel, global_variables& globals) {
 
   if (parallel.boss) {
     std::ofstream of;
@@ -69,8 +70,9 @@ void initialise(struct parallel_ &parallel) {
       << std::endl;
   }
 
+  read_input(parallel, globals);
+
 /*
-  CALL read_input()
 
   CALL clover_barrier
 

@@ -5,7 +5,7 @@ include $(KOKKOS_PATH)/Makefile.kokkos
 
 CXX = mpic++
 
-OBJ = clover_leaf.o comms.o initialise.o
+OBJ = clover_leaf.o comms.o initialise.o read_input.o
 
 clover_leaf: $(OBJ) $(KOKKOS_CPP_DEPENDS)
 	$(CXX) $(KOKKOS_LDFLAGS) -O3 $(OPTIONS) $(OBJ) $(KOKKOS_LIBS) -o $@
