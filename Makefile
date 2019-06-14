@@ -3,7 +3,9 @@ default: clover_leaf
 
 include $(KOKKOS_PATH)/Makefile.kokkos
 
-OBJ = clover_leaf.o
+CXX = mpic++
+
+OBJ = clover_leaf.o comms.o
 
 clover_leaf: $(OBJ) $(KOKKOS_CPP_DEPENDS)
 	$(CXX) $(KOKKOS_LDFLAGS) -O3 $(OPTIONS) $(OBJ) $(KOKKOS_LIBS) -o $@
