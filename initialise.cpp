@@ -14,7 +14,7 @@ void initialise(parallel_ &parallel, global_variables& globals) {
   if (parallel.boss) {
     of.open("clover.out");
     if (!of.is_open())
-      report_error("initialise", "Error opening clover.out file.");
+      report_error((char *)"initialise", (char *)"Error opening clover.out file.");
 
     g_out.rdbuf(of.rdbuf());
 
