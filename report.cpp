@@ -1,4 +1,8 @@
 
+//  @brief Controls error reporting 
+//  @author Wayne Gaudin
+//  @details Outputs error messages and aborts the calculation.
+
 #include "report.h"
 
 #include "comms.h"

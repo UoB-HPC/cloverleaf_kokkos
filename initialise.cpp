@@ -1,4 +1,11 @@
 
+//  @brief Top level initialisation routine
+//  @author Wayne Gaudin
+//  @details Checks for the user input and either invokes the input reader or
+//  switches to the internal test problem. It processes the input and strips
+//  comments before writing a final input file.
+//  It then calls the start routine.
+
 #include "initialise.h"
 #include "report.h"
 #include "version.h"
@@ -8,13 +15,6 @@
 
 extern std::ostream g_out;
 std::ofstream of;
-
-//  @brief Top level initialisation routine
-//  @author Wayne Gaudin
-//  @details Checks for the user input and either invokes the input reader or
-//  switches to the internal test problem. It processes the input and strips
-//  comments before writing a final input file.
-//  It then calls the start routine.
 
 void initialise(parallel_ &parallel, global_variables& globals) {
 

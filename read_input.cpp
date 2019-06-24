@@ -1,4 +1,10 @@
 
+// @brief Reads the user input
+// @author Wayne Gaudin
+// @details Reads and parses the user input from the processed file and sets
+// the variables used in the generation phase. Default values are also set
+// here.
+
 #include "read_input.h"
 
 #include "report.h"
