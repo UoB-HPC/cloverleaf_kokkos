@@ -10,6 +10,7 @@
 #include "report.h"
 #include "version.h"
 #include "read_input.h"
+#include "start.h"
 
 #include <fstream>
 
@@ -86,7 +87,7 @@ void initialise(parallel_ &parallel, global_variables& globals) {
 
   globals.step=0;
 
-  start();
+  start(parallel, globals);
 
   clover_barrier();
 
