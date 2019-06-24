@@ -9,6 +9,13 @@
 extern std::ostream g_out;
 std::ofstream of;
 
+//  @brief Top level initialisation routine
+//  @author Wayne Gaudin
+//  @details Checks for the user input and either invokes the input reader or
+//  switches to the internal test problem. It processes the input and strips
+//  comments before writing a final input file.
+//  It then calls the start routine.
+
 void initialise(parallel_ &parallel, global_variables& globals) {
 
   if (parallel.boss) {
@@ -75,22 +82,19 @@ void initialise(parallel_ &parallel, global_variables& globals) {
 
   read_input(g_in, parallel, globals);
 
-/*
+  clover_barrier();
 
-  CALL clover_barrier
+  globals.step=0;
 
-  step=0
+  start();
 
-  CALL start
+  clover_barrier();
 
-  CALL clover_barrier
+  if (parallel.boss) {
+    g_out << "Starting the calculation" << std::endl;
+  }
 
-  IF(parallel%boss)THEN
-    WRITE(g_out,*) 'Starting the calculation'
-  ENDIF
-
-  CLOSE(g_in)
-  */
+  g_in.close();
 
 }
 
