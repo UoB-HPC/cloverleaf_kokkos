@@ -6,10 +6,12 @@
 
 #include <fstream>
 
+extern std::ostream g_out;
+std::ofstream of;
+
 void initialise(parallel_ &parallel, global_variables& globals) {
 
   if (parallel.boss) {
-    std::ofstream of;
     of.open("clover.out");
     if (!of.is_open())
       report_error("initialise", "Error opening clover.out file.");
