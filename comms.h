@@ -2,6 +2,8 @@
 #ifndef COMMS_H
 #define COMMS_H
 
+#include "definitions.h"
+
 // Structure to hold MPI rank information
 struct parallel_ {
 
@@ -26,6 +28,9 @@ struct parallel_ {
 
 void clover_abort();
 void clover_barrier();
+
+void clover_decompose(global_variables& globals, parallel_& parallel, int x_cells, int y_cells, int& left, int& right, int& bottom, int& top);
+void clover_tile_decompose(global_variables& globals, int chunk_x_cells, int chunk_y_cells);
 
 #endif
 
