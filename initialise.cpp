@@ -34,12 +34,13 @@ void initialise(parallel_ &parallel, global_variables& globals) {
 
   clover_barrier();
 
+  std::ifstream g_in;
   if (parallel.boss) {
     g_out << "Clover will run from the following input:-" << std::endl
       << std::endl;
 
     // Try to open clover.in
-    std::ifstream g_in("clover.in");
+    g_in.open("clover.in");
     if (!g_in.good()) {
       g_in.close();
       std::ofstream out_unit("clover.in");
@@ -72,7 +73,7 @@ void initialise(parallel_ &parallel, global_variables& globals) {
       << std::endl;
   }
 
-  read_input(parallel, globals);
+  read_input(g_in, parallel, globals);
 
 /*
 

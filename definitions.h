@@ -5,6 +5,8 @@
 
 #define g_ibig 640000
 
+enum class geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };
+
 struct state_type {
 
   bool defined;
@@ -14,12 +16,13 @@ struct state_type {
   double xvel;
   double yvel;
 
-  int geometry;
+  geometry_type geometry;
 
   double xmin;
   double ymin;
   double xmax;
   double ymax;
+  double radius;
 };
 
 struct grid_type {

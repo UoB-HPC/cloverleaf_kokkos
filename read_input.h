@@ -4,7 +4,9 @@
 #include "comms.h"
 #include "definitions.h"
 
-void read_input(parallel_& parallel, global_variables& globals);
+#include <fstream>
+
+void read_input(std::ifstream& g_in, parallel_& parallel, global_variables& globals);
 
 #endif
 
