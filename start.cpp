@@ -7,7 +7,7 @@
 //  pressure before priming the halo cells and writing an initial field summary.
 
 #include "start.h"
-
+#include "build_field.h"
 
 extern std::ostream g_out;
 
@@ -57,6 +57,7 @@ void start(parallel_& parallel, global_variables& globals) {
   clover_tile_decompose(globals, x_cells, y_cells);
 
   // Line 92 start.f90
+  build_field(globals);
 
 }
 
