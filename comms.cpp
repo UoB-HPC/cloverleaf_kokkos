@@ -246,3 +246,28 @@ void clover_tile_decompose(global_variables& globals, int chunk_x_cells, int chu
 }
 
 
+void clover_allocate_buffers(global_variables& globals, parallel_& parallel) {
+
+  // Unallocated buffers for external boundaries caused issues on some systems so they are now
+  //  all allocated
+  if (parallel.task == globals.chunk.task) {
+    new(&globals.chunk.left_snd_buffer)   Kokkos::View<double*>("left_snd_buffer",   10*2*(globals.chunk.y_max+5));
+    new(&globals.chunk.left_rcv_buffer)   Kokkos::View<double*>("left_rcv_buffer",   10*2*(globals.chunk.y_max+5));
+    new(&globals.chunk.right_snd_buffer)  Kokkos::View<double*>("right_snd_buffer",  10*2*(globals.chunk.y_max+5));
+    new(&globals.chunk.right_rcv_buffer)  Kokkos::View<double*>("right_rcv_buffer",  10*2*(globals.chunk.y_max+5));
+    new(&globals.chunk.bottom_snd_buffer) Kokkos::View<double*>("bottom_snd_buffer", 10*2*(globals.chunk.x_max+5));
+    new(&globals.chunk.bottom_rcv_buffer) Kokkos::View<double*>("bottom_rcv_buffer", 10*2*(globals.chunk.x_max+5));
+    new(&globals.chunk.top_snd_buffer)    Kokkos::View<double*>("top_snd_buffer",    10*2*(globals.chunk.x_max+5));
+    new(&globals.chunk.top_rcv_buffer)    Kokkos::View<double*>("top_rcv_buffer",    10*2*(globals.chunk.x_max+5));
+
+    // Create host mirrors of device buffers. This makes this, and deep_copy, a no-op if the View is in host memory already.
+    globals.chunk.hm_left_snd_buffer   = Kokkos::create_mirror_view(globals.chunk.left_snd_buffer);
+    globals.chunk.hm_left_rcv_buffer   = Kokkos::create_mirror_view(globals.chunk.left_rcv_buffer);
+    globals.chunk.hm_right_snd_buffer  = Kokkos::create_mirror_view(globals.chunk.right_snd_buffer);
+    globals.chunk.hm_right_rcv_buffer  = Kokkos::create_mirror_view(globals.chunk.right_rcv_buffer);
+    globals.chunk.hm_bottom_snd_buffer = Kokkos::create_mirror_view(globals.chunk.bottom_snd_buffer);
+    globals.chunk.hm_bottom_rcv_buffer = Kokkos::create_mirror_view(globals.chunk.bottom_rcv_buffer);
+    globals.chunk.hm_top_snd_buffer    = Kokkos::create_mirror_view(globals.chunk.top_snd_buffer);
+    globals.chunk.hm_top_rcv_buffer    = Kokkos::create_mirror_view(globals.chunk.top_rcv_buffer);
+  }
+}

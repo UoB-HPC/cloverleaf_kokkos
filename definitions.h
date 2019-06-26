@@ -120,8 +120,8 @@ struct chunk_type {
   Kokkos::View<double*> left_snd_buffer, right_snd_buffer, bottom_snd_buffer, top_snd_buffer;
 
   // MPI Buffers in host memory - to be created with Kokkos::create_mirror_view() and Kokkos::deep_copy()
-  Kokkos::View<double*>::HostMirror hm_left_rcv_buffer, hm_right_rcv_buffer, hm_bottom_rcv_buffer, hm_top_rcv_buffer;
-  Kokkos::View<double*>::HostMirror hm_left_snd_buffer, hm_right_snd_buffer, hm_bottom_snd_buffer, hm_top_snd_buffer;
+  typename Kokkos::View<double*>::HostMirror hm_left_rcv_buffer, hm_right_rcv_buffer, hm_bottom_rcv_buffer, hm_top_rcv_buffer;
+  typename Kokkos::View<double*>::HostMirror hm_left_snd_buffer, hm_right_snd_buffer, hm_bottom_snd_buffer, hm_top_snd_buffer;
 
   tile_type *tiles;
 
