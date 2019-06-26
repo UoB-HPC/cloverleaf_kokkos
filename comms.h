@@ -32,6 +32,7 @@ void clover_barrier();
 void clover_decompose(global_variables& globals, parallel_& parallel, int x_cells, int y_cells, int& left, int& right, int& bottom, int& top);
 void clover_tile_decompose(global_variables& globals, int chunk_x_cells, int chunk_y_cells);
 void clover_allocate_buffers(global_variables& globals, parallel_& parallel);
+void clover_sum(double& value);
 
 #endif
 

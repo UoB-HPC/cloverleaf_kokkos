@@ -271,3 +271,11 @@ void clover_allocate_buffers(global_variables& globals, parallel_& parallel) {
     globals.chunk.hm_top_rcv_buffer    = Kokkos::create_mirror_view(globals.chunk.top_rcv_buffer);
   }
 }
+
+void clover_sum(double& value) {
+
+  double total;
+  MPI_Reduce(&value, &total, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  value = total;
+}
+
