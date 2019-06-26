@@ -10,6 +10,8 @@
 #include "build_field.h"
 #include "initialise_chunk.h"
 #include "generate_chunk.h"
+#include "ideal_gas.h"
+#include "field_summary.h"
 
 extern std::ostream g_out;
 
@@ -73,6 +75,51 @@ void start(parallel_& parallel, global_variables& globals) {
     initialise_chunk(tile, globals);
     generate_chunk(tile, globals);
   }
+
+  globals.advect_x = true;
+
+  clover_barrier();
+
+  // Do no profile the start up costs otherwise the total times will not add up
+  // at the end
+  bool profiler_off = globals.profiler_on;
+  globals.profiler_on = false;
+
+  for (int tile = 0; tile < globals.tiles_per_chunk; ++tile) {
+    ideal_gas(globals, tile, false);
+  }
+
+  // Prime all halo data for the first step
+  int fields[NUM_FIELDS];
+  for (int i = 0; i < NUM_FIELDS; ++i)
+    fields[i] = 0;
+
+  fields[field_density0]  = 1;
+  fields[field_energy0]   = 1;
+  fields[field_pressure]  = 1;
+  fields[field_viscosity] = 1;
+  fields[field_density1]  = 1;
+  fields[field_energy1]   = 1;
+  fields[field_xvel0]     = 1;
+  fields[field_yvel0]     = 1;
+  fields[field_xvel1]     = 1;
+  fields[field_yvel1]     = 1;
+
+  //update_halo(globals, fields, 2);
+
+  if (parallel.boss) {
+    g_out << std::endl
+      << "Problem initialised and generated" << std::endl;
+  }
+
+  field_summary(globals, parallel);
+
+  if (globals.visit_frequency != 0)
+    // visit(globals);
+
+  clover_barrier();
+
+  globals.profiler_on = profiler_off;
 
 }
 
