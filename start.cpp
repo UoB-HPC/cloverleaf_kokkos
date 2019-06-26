@@ -12,6 +12,7 @@
 #include "generate_chunk.h"
 #include "ideal_gas.h"
 #include "field_summary.h"
+#include "visit.h"
 
 extern std::ostream g_out;
 
@@ -114,8 +115,7 @@ void start(parallel_& parallel, global_variables& globals) {
 
   field_summary(globals, parallel);
 
-  if (globals.visit_frequency != 0)
-    // visit(globals);
+  if (globals.visit_frequency != 0) visit(globals);
 
   clover_barrier();
 
