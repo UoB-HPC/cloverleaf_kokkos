@@ -5,7 +5,7 @@
 
 #define g_ibig 640000
 
-enum class geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };
+enum geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };
 
 // In the Fortran version these are 1,2,3,4,-1, but they are used firectly to index an array in this version
 enum chunk_neighbour_type { chunk_left = 0, chunk_right = 1, chunk_bottom = 2, chunk_top = 3, external_face = -1 };

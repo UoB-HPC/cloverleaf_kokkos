@@ -8,6 +8,8 @@
 
 #include "start.h"
 #include "build_field.h"
+#include "initialise_chunk.h"
+#include "generate_chunk.h"
 
 extern std::ostream g_out;
 
@@ -58,6 +60,19 @@ void start(parallel_& parallel, global_variables& globals) {
 
   // Line 92 start.f90
   build_field(globals);
+
+  clover_barrier();
+
+  clover_allocate_buffers(globals, parallel);
+
+  if (parallel.boss) {
+    g_out << "Generating chunks" << std::endl;
+  }
+
+  for (int tile = 0; tile < globals.tiles_per_chunk; ++tile) {
+    initialise_chunk(tile, globals);
+    generate_chunk(tile, globals);
+  }
 
 }
 
