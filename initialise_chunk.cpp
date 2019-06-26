@@ -2,6 +2,9 @@
 // @brief Driver for chunk initialisation.
 // @author Wayne Gaudin
 // @details Invokes the user specified chunk initialisation kernel.
+// @brief Fortran chunk initialisation kernel.
+// @author Wayne Gaudin
+// @details Calculates mesh geometry for the mesh chunk based on the mesh size.
 
 #include "initialise_chunk.h"
 
