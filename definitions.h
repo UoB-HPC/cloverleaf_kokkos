@@ -4,12 +4,33 @@
 #include <Kokkos_Core.hpp>
 
 #define g_ibig 640000
+#define NUM_FIELDS 15
 
 enum geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };
 
 // In the Fortran version these are 1,2,3,4,-1, but they are used firectly to index an array in this version
 enum chunk_neighbour_type { chunk_left = 0, chunk_right = 1, chunk_bottom = 2, chunk_top = 3, external_face = -1 };
 enum tile_neighbour_type { tile_left = 0, tile_right = 1, tile_bottom = 3, tile_top = 3, external_tile = -1 };
+
+// Again, start at 0 as used for indexing an array of length NUM_FIELDS
+enum field_parameter {
+
+  field_density0   = 0,
+  field_density1   = 1,
+  field_energy0    = 2,
+  field_energy1    = 3,
+  field_pressure   = 4,
+  field_viscosity  = 5,
+  field_soundspeed = 6,
+  field_xvel0      = 7,
+  field_xvel1      = 8,
+  field_yvel0      = 9,
+  field_yvel1      = 10,
+  field_vol_flux_x = 11,
+  field_vol_flux_y = 12,
+  field_mass_flux_x= 13,
+  field_mass_flux_y= 14
+};
 
 struct state_type {
 
