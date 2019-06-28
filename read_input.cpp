@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <iterator>
 
 extern std::ostream g_out;
 
