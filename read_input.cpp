@@ -73,7 +73,8 @@ void read_input(std::ifstream& g_in, parallel_& parallel, global_variables& glob
   // Count the number of "state ..." lines in the input file
   while (true) {
     std::getline(g_in, line);
-    if (line.size() == 0) break;
+    if (g_in.eof()) break;
+    if (line.size() == 0) continue;
 
     // Break on spaces
     std::istringstream iss(line);
@@ -102,7 +103,8 @@ void read_input(std::ifstream& g_in, parallel_& parallel, global_variables& glob
 
   while (true) {
     std::getline(g_in, line);
-    if (line.size() == 0) break;
+    if (g_in.eof()) break;
+    if (line.size() == 0) continue;
 
     // Split line on spaces and =
     std::vector<std::string> words;
