@@ -14,6 +14,7 @@
 //  systems of the order of 10K cores.
 
 #include "comms.h"
+#include "pack_kernel.h"
 
 #include <mpi.h>
 
@@ -322,7 +323,187 @@ void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const in
 void clover_pack_left(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int left_right_offset[NUM_FIELDS]) {
 
   int t_offset = (globals.chunk.tiles[tile].t_bottom - globals.chunk.bottom) * depth;
-  std::cout << "TODO clover_pack_left" << std::endl;
+
+  if (fields[field_density0] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.density0,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_density0]+t_offset);
+  }
+  if (fields[field_density1] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.density1,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_density1]+t_offset);
+  }
+  if (fields[field_energy0] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.energy0,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_energy0]+t_offset);
+  }
+  if (fields[field_energy1] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.energy1,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_energy1]+t_offset);
+  }
+  if (fields[field_pressure] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.pressure,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_pressure]+t_offset);
+  }
+  if (fields[field_viscosity] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.viscosity,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_viscosity]+t_offset);
+  }
+  if (fields[field_soundspeed] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.soundspeed,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, cell_data,
+      left_right_offset[field_soundspeed]+t_offset);
+  }
+  if (fields[field_xvel0] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.xvel0,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, vertex_data,
+      left_right_offset[field_xvel0]+t_offset);
+  }
+  if (fields[field_xvel1] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.xvel1,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, vertex_data,
+      left_right_offset[field_xvel1]+t_offset);
+  }
+  if (fields[field_yvel0] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.yvel0,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, vertex_data,
+      left_right_offset[field_yvel0]+t_offset);
+  }
+  if (fields[field_yvel1] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.yvel1,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, vertex_data,
+      left_right_offset[field_yvel1]+t_offset);
+  }
+  if (fields[field_vol_flux_x] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.vol_flux_x,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, x_face_data,
+      left_right_offset[field_vol_flux_x]+t_offset);
+  }
+  if (fields[field_vol_flux_y] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.vol_flux_y,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, y_face_data,
+      left_right_offset[field_vol_flux_y]+t_offset);
+  }
+  if (fields[field_mass_flux_x] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.mass_flux_x,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, x_face_data,
+      left_right_offset[field_mass_flux_x]+t_offset);
+  }
+  if (fields[field_mass_flux_y] == 1) {
+    clover_pack_message_left(
+      globals.chunk.tiles[tile].t_xmin,
+      globals.chunk.tiles[tile].t_xmax,
+      globals.chunk.tiles[tile].t_ymin,
+      globals.chunk.tiles[tile].t_ymax,
+      globals.chunk.tiles[tile].field.mass_flux_y,
+      globals.chunk.left_snd_buffer,
+      cell_data, vertex_data, x_face_data, y_face_data,
+      depth, y_face_data,
+      left_right_offset[field_mass_flux_y]+t_offset);
+  }
 }
 
 
