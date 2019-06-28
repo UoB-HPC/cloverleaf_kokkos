@@ -5,6 +5,7 @@
 
 #define g_ibig 640000
 #define g_small (1.0e-16)
+#define g_big   (1.0e+21)
 #define NUM_FIELDS 15
 
 enum geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };

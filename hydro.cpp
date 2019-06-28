@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "field_summary.h"
 #include "visit.h"
+#include "timestep.h"
 
 #include <algorithm>
 
@@ -30,7 +31,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     globals.step += 1;
 
-    // CALL timestep()
+    timestep(globals, parallel);
 
     // CALL PdV(.TRUE.)
 
