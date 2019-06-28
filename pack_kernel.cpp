@@ -156,3 +156,147 @@ void clover_unpack_message_right(int x_min, int x_max, int y_min, int y_max,
 
 }
 
+void clover_pack_message_top(int x_min, int x_max, int y_min, int y_max,
+  Kokkos::View<double**>& field, Kokkos::View<double*>& top_snd_buffer,
+  int cell_data, int vertex_data, int x_face_data, int y_face_data,
+  int depth, int field_type, int buffer_offset) {
+
+  // Pack
+
+  int x_inc, y_inc;
+
+  // These array modifications still need to be added on, plus the donor data location changes as in update_halo
+  if (field_type == cell_data) {
+    x_inc = 0;
+    y_inc = 0;
+  }
+  if (field_type == vertex_data) {
+    x_inc = 1;
+    y_inc = 1;
+  }
+  if (field_type == x_face_data) {
+    x_inc = 1;
+    y_inc = 0;
+  }
+  if (field_type == y_face_data) {
+    x_inc = 0;
+    y_inc = 1;
+  }
+
+  for (int k = 1; k <= depth; ++k) {
+    Kokkos::RangePolicy<> range(x_min-depth, x_max+x_inc+depth+1);
+    Kokkos::parallel_for("clover_pack_message_top", range, KOKKOS_LAMBDA (const int j) {
+      int index = buffer_offset + k + (j+depth-1) * depth;
+      top_snd_buffer(index) = field(j,y_max+1-k);
+    });
+  }
+}
+
+void clover_unpack_message_top(int x_min, int x_max, int y_min, int y_max,
+  Kokkos::View<double**>& field, Kokkos::View<double*>& top_rcv_buffer,
+  int cell_data, int vertex_data, int x_face_data, int y_face_data,
+  int depth, int field_type, int buffer_offset) {
+
+  // Unpack
+
+  int x_inc, y_inc;
+
+  // These array modifications still need to be added on, plus the donor data location changes as in update_halo
+  if (field_type == cell_data) {
+    x_inc = 0;
+    y_inc = 0;
+  }
+  if (field_type == vertex_data) {
+    x_inc = 1;
+    y_inc = 1;
+  }
+  if (field_type == x_face_data) {
+    x_inc = 1;
+    y_inc = 0;
+  }
+  if (field_type == y_face_data) {
+    x_inc = 0;
+    y_inc = 1;
+  }
+
+  for (int k = 1; k <= depth; ++k) {
+    Kokkos::RangePolicy<> range(x_min-depth, x_max+x_inc+depth+1);
+    Kokkos::parallel_for("clover_unpack_message_top", range, KOKKOS_LAMBDA (const int j) {
+      int index = buffer_offset + k + (j+depth-1) * depth;
+      field(j,y_max+y_inc+k) = top_rcv_buffer(index);
+    });
+  }
+}
+
+
+void clover_pack_message_bottom(int x_min, int x_max, int y_min, int y_max,
+  Kokkos::View<double**>& field, Kokkos::View<double*>& bottom_snd_buffer,
+  int cell_data, int vertex_data, int x_face_data, int y_face_data,
+  int depth, int field_type, int buffer_offset) {
+
+  // Pack
+
+  int x_inc, y_inc;
+
+  // These array modifications still need to be added on, plus the donor data location changes as in update_halo
+  if (field_type == cell_data) {
+    x_inc = 0;
+    y_inc = 0;
+  }
+  if (field_type == vertex_data) {
+    x_inc = 1;
+    y_inc = 1;
+  }
+  if (field_type == x_face_data) {
+    x_inc = 1;
+    y_inc = 0;
+  }
+  if (field_type == y_face_data) {
+    x_inc = 0;
+    y_inc = 1;
+  }
+
+  for (int k = 1; k <= depth; ++k) {
+    Kokkos::RangePolicy<> range(x_min-depth, x_max+x_inc+depth+1);
+    Kokkos::parallel_for("clover_pack_message_bottom", range, KOKKOS_LAMBDA (const int j) {
+      int index = buffer_offset + k + (j+depth-1) * depth;
+      bottom_snd_buffer(index) = field(j,y_min+y_inc-1+k);
+    });
+  }
+}
+
+void clover_unpack_message_bottom(int x_min, int x_max, int y_min, int y_max,
+  Kokkos::View<double**>& field, Kokkos::View<double*>& bottom_rcv_buffer,
+  int cell_data, int vertex_data, int x_face_data, int y_face_data,
+  int depth, int field_type, int buffer_offset) {
+
+  // Unpack
+
+  int x_inc, y_inc;
+
+  // These array modifications still need to be added on, plus the donor data location changes as in update_halo
+  if (field_type == cell_data) {
+    x_inc = 0;
+    y_inc = 0;
+  }
+  if (field_type == vertex_data) {
+    x_inc = 1;
+    y_inc = 1;
+  }
+  if (field_type == x_face_data) {
+    x_inc = 1;
+    y_inc = 0;
+  }
+  if (field_type == y_face_data) {
+    x_inc = 0;
+    y_inc = 1;
+  }
+
+  for (int k = 1; k <= depth; ++k) {
+    Kokkos::RangePolicy<> range(x_min-depth, x_max+x_inc+depth+1);
+    Kokkos::parallel_for("clover_unpack_message_top", range, KOKKOS_LAMBDA (const int j) {
+      int index = buffer_offset + k + (j+depth-1) * depth;
+      field(j,y_min-k) = bottom_rcv_buffer(index);
+    });
+  }
+}

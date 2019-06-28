@@ -45,5 +45,12 @@ void clover_pack_right(global_variables& globals, int tile, int fields[NUM_FIELD
 void clover_send_recv_message_right(global_variables& globals, Kokkos::View<double*>& right_snd_buffer, Kokkos::View<double*>& right_rcv_buffer, int total_size, int tag_send, int tag_recv, int& req_send, int& req_recv);
 void clover_unpack_right(global_variables& globals, int fields[NUM_FIELDS], int tile, int depth, int left_right_offset[NUM_FIELDS]);
 
+void clover_pack_top(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int bottom_top_offset[NUM_FIELDS]);
+void clover_send_recv_message_top(global_variables& globals, Kokkos::View<double*>& top_snd_buffer, Kokkos::View<double*>& top_rcv_buffer, int total_size, int tag_send, int tag_recv, int& req_send, int& req_recv);
+void clover_unpack_top(global_variables& globals, int fields[NUM_FIELDS], int tile, int depth, int bottom_top_offset[NUM_FIELDS]);
+
+void clover_pack_bottom(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int bottom_top_offset[NUM_FIELDS]);
+void clover_send_recv_message_bottom(global_variables& globals, Kokkos::View<double*>& bottom_snd_buffer, Kokkos::View<double*>& top_rcv_buffer, int total_size, int tag_send, int tag_recv, int& req_send, int& req_recv);
+void clover_unpack_bottom(global_variables& globals, int fields[NUM_FIELDS], int tile, int depth, int bottom_top_offset[NUM_FIELDS]);
 #endif
 
