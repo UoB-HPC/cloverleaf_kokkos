@@ -280,6 +280,12 @@ void clover_sum(double& value) {
   value = total;
 }
 
+void clover_allgather(double value, double *values) {
+
+  values[0] = value; // Just to ensure it will work in serial
+  MPI_Allgather(&value, 1, MPI_DOUBLE, values, 1, MPI_DOUBLE, MPI_COMM_WORLD);
+}
+
 void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth) {
 
   // Assuming 1 patch per task, this will be changed

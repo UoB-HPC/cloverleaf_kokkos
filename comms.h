@@ -34,6 +34,7 @@ void clover_tile_decompose(global_variables& globals, int chunk_x_cells, int chu
 void clover_allocate_buffers(global_variables& globals, parallel_& parallel);
 
 void clover_sum(double& value);
+void clover_allgather(double value, double *values);
 
 void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth);
 
