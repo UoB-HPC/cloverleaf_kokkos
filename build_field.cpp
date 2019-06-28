@@ -70,7 +70,7 @@ void build_field(global_variables& globals) {
     // cycle which can skew timings in the first step
 
     // Nested loop over (t_ymin-2:t_ymax+3) and (t_xmin-2:t_xmax+3) inclusive
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_1({0,0}, {xrange+2,yrange+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_1({0,0}, {xrange+1,yrange+1});
 
     Kokkos::parallel_for("build_field_zero_1", loop_bounds_1, KOKKOS_LAMBDA (const int j, const int k) {
 
@@ -90,7 +90,7 @@ void build_field(global_variables& globals) {
     });
 
     // Nested loop over (t_ymin-2:t_ymax+2) and (t_xmin-2:t_xmax+2) inclusive
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_2({0,0}, {xrange+1,yrange+1});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_2({0,0}, {xrange,yrange});
 
     Kokkos::parallel_for("build_field_zero_2", loop_bounds_2, KOKKOS_LAMBDA (const int j, const int k) {
 
@@ -106,7 +106,7 @@ void build_field(global_variables& globals) {
     });
 
     // Nested loop over (t_ymin-2:t_ymax+2) and (t_xmin-2:t_xmax+3) inclusive
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_3({0,0}, {xrange+2,yrange+1});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_3({0,0}, {xrange+1,yrange});
 
     Kokkos::parallel_for("build_field_zero_3", loop_bounds_3, KOKKOS_LAMBDA (const int j, const int k) {
 
@@ -116,7 +116,7 @@ void build_field(global_variables& globals) {
     });
 
     // Nested loop over (t_ymin-2:t_ymax+3) and (t_xmin-2:t_xmax+2) inclusive
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_4({0,0}, {xrange+1,yrange+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_4({0,0}, {xrange,yrange+1});
 
     Kokkos::parallel_for("build_field_zero_4", loop_bounds_4, KOKKOS_LAMBDA (const int j, const int k) {
 
