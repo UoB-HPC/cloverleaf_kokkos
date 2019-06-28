@@ -279,3 +279,50 @@ void clover_sum(double& value) {
   value = total;
 }
 
+void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth) {
+
+  // Assuming 1 patch per task, this will be changed
+
+  int left_right_offset[NUM_FIELDS];
+  int bottom_top_offset[NUM_FIELDS];
+
+  int request[4] = {0};
+  int message_count = 0;
+
+  int cnk = 1;
+
+  int end_pack_index_left_right = 0;
+  int end_pack_index_bottom_top = 0;
+  for (int field = 0; field < NUM_FIELDS; ++field) {
+    if (fields[field] == 1) {
+      left_right_offset[field] = end_pack_index_left_right;
+      bottom_top_offset[field] = end_pack_index_bottom_top;
+      end_pack_index_left_right += depth * (globals.chunk.y_max+5);
+      end_pack_index_bottom_top += depth * (globals.chunk.x_max+5);
+    }
+  }
+
+  if (globals.chunk.chunk_neighbours[chunk_left] == external_face) {
+    // do left exchanges
+    // Find left hand tiles
+    for (int tile = 0; tile < globals.tiles_per_chunk; ++tile) {
+      if (globals.chunk.tiles[tile].external_tile_mask[tile_left] == 1) {
+        clover_pack_left(globals, tile, fields, depth, left_right_offset);
+      }
+    }
+
+    // Line 386
+
+
+  }
+  std::cout << "TODO clover_exchange" << std::endl;
+}
+
+
+void clover_pack_left(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int left_right_offset[NUM_FIELDS]) {
+
+  int t_offset = (globals.chunk.tiles[tile].t_bottom - globals.chunk.bottom) * depth;
+  std::cout << "TODO clover_pack_left" << std::endl;
+}
+
+

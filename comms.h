@@ -33,6 +33,8 @@ void clover_decompose(global_variables& globals, parallel_& parallel, int x_cell
 void clover_tile_decompose(global_variables& globals, int chunk_x_cells, int chunk_y_cells);
 void clover_allocate_buffers(global_variables& globals, parallel_& parallel);
 void clover_sum(double& value);
+void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth);
+void clover_pack_left(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int left_right_offset[NUM_FIELDS]);
 
 #endif
 

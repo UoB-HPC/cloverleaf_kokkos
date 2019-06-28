@@ -12,6 +12,7 @@
 #include "generate_chunk.h"
 #include "ideal_gas.h"
 #include "field_summary.h"
+#include "update_halo.h"
 #include "visit.h"
 
 extern std::ostream g_out;
@@ -106,7 +107,7 @@ void start(parallel_& parallel, global_variables& globals) {
   fields[field_xvel1]     = 1;
   fields[field_yvel1]     = 1;
 
-  //update_halo(globals, fields, 2);
+  update_halo(globals, fields, 2);
 
   if (parallel.boss) {
     g_out << std::endl
