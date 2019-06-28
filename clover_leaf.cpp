@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 
   initialise(parallel, globals);
 
-  hydro(globals);
+  hydro(globals, parallel);
   
   // Finilise programming models
   Kokkos::finalize();
