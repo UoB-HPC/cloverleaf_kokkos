@@ -35,6 +35,7 @@ void clover_allocate_buffers(global_variables& globals, parallel_& parallel);
 void clover_sum(double& value);
 void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth);
 void clover_pack_left(global_variables& globals, int tile, int fields[NUM_FIELDS], int depth, int left_right_offset[NUM_FIELDS]);
+void clover_send_recv_message_left(global_variables& globals, Kokkos::View<double*>& left_snd_buffer, Kokkos::View<double*>& left_rcv_buffer, int total_size, int tag_send, int tag_recv, int& req_send, int& req_recv);
 
 #endif
 

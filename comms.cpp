@@ -303,7 +303,7 @@ void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const in
     }
   }
 
-  if (globals.chunk.chunk_neighbours[chunk_left] == external_face) {
+  if (globals.chunk.chunk_neighbours[chunk_left] != external_face) {
     // do left exchanges
     // Find left hand tiles
     for (int tile = 0; tile < globals.tiles_per_chunk; ++tile) {
@@ -312,10 +312,17 @@ void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const in
       }
     }
 
-    // Line 386
-
-
+    // send and recv messages to the left
+    clover_send_recv_message_left(globals,
+      globals.chunk.left_snd_buffer,
+      globals.chunk.left_rcv_buffer,
+      end_pack_index_left_right,
+      1, 2,
+      request[message_count], request[message_count+1]);
+    message_count += 2;
   }
+
+
   std::cout << "TODO clover_exchange" << std::endl;
 }
 
@@ -505,5 +512,23 @@ void clover_pack_left(global_variables& globals, int tile, int fields[NUM_FIELDS
       left_right_offset[field_mass_flux_y]+t_offset);
   }
 }
+
+void clover_send_recv_message_left(
+  global_variables& globals,
+  Kokkos::View<double*>& left_snd_buffer,
+  Kokkos::View<double*>& left_rcv_buffer,
+  int total_size, int tag_send, int tag_recv,
+  int& req_send, int& req_recv) {
+
+  // First copy send buffer from device to host
+  Kokkos::deep_copy(globals.chunk.hm_left_snd_buffer, left_snd_buffer);
+
+  int left_task = globals.chunk.chunk_neighbours[chunk_left] - 1;
+
+  MPI_Isend(globals.chunk.hm_left_snd_buffer.data(), total_size, MPI_DOUBLE, left_task, tag_send, MPI_COMM_WORLD, &req_send);
+
+  MPI_Irecv(globals.chunk.hm_left_rcv_buffer.data(), total_size, MPI_DOUBLE, left_task, tag_recv, MPI_COMM_WORLD, &req_recv);
+}
+
 
 

@@ -32,6 +32,13 @@ enum field_parameter {
   field_mass_flux_y= 14
 };
 
+enum data_parameter {
+  cell_data = 1,
+  vertex_data = 2,
+  x_face_data = 3,
+  y_face_data = 4
+};
+
 struct state_type {
 
   bool defined;
