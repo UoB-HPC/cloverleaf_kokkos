@@ -12,9 +12,10 @@ void ideal_gas_kernel(
   Kokkos::View<double**>& pressure,
   Kokkos::View<double**>& soundspeed) {
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-1,y_min-1}, {x_max-x_min+1,y_max-y_min+1});
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min,y_min}, {x_max-x_min+2,y_max-y_min+2});
 
   Kokkos::parallel_for("ideal_gas", policy, KOKKOS_LAMBDA (const int j, const int k) {
+    std::cout << "jk: " << j << " " << k << std::endl;
     double v = 1.0/density(j,k);
     pressure(j,k) = (1.4-1.0)*density(j,k)*energy(j,k);
     double pressurebyenergy = (1.4-1.0)*density(j,k);
