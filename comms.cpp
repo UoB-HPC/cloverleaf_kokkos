@@ -293,7 +293,7 @@ void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const in
   int left_right_offset[NUM_FIELDS];
   int bottom_top_offset[NUM_FIELDS];
 
-  int request[4] = {0};
+  MPI_Request request[4] = {0};
   int message_count = 0;
 
   int cnk = 1;
@@ -629,7 +629,7 @@ void clover_send_recv_message_left(
   Kokkos::View<double*>& left_snd_buffer,
   Kokkos::View<double*>& left_rcv_buffer,
   int total_size, int tag_send, int tag_recv,
-  int& req_send, int& req_recv) {
+  MPI_Request& req_send, MPI_Request& req_recv) {
 
   // First copy send buffer from device to host
   Kokkos::deep_copy(globals.chunk.hm_left_snd_buffer, left_snd_buffer);
@@ -1018,7 +1018,7 @@ void clover_send_recv_message_right(
   Kokkos::View<double*>& right_snd_buffer,
   Kokkos::View<double*>& right_rcv_buffer,
   int total_size, int tag_send, int tag_recv,
-  int& req_send, int& req_recv) {
+  MPI_Request& req_send, MPI_Request& req_recv) {
 
   // First copy send buffer from device to host
   Kokkos::deep_copy(globals.chunk.hm_right_snd_buffer, right_snd_buffer);
@@ -1407,7 +1407,7 @@ void clover_send_recv_message_top(
   Kokkos::View<double*>& top_snd_buffer,
   Kokkos::View<double*>& top_rcv_buffer,
   int total_size, int tag_send, int tag_recv,
-  int& req_send, int& req_recv) {
+  MPI_Request& req_send, MPI_Request& req_recv) {
 
   // First copy send buffer from device to host
   Kokkos::deep_copy(globals.chunk.hm_top_snd_buffer, top_snd_buffer);
@@ -1796,7 +1796,7 @@ void clover_send_recv_message_bottom(
   Kokkos::View<double*>& bottom_snd_buffer,
   Kokkos::View<double*>& bottom_rcv_buffer,
   int total_size, int tag_send, int tag_recv,
-  int& req_send, int& req_recv) {
+  MPI_Request& req_send, MPI_Request& req_recv) {
 
   // First copy send buffer from device to host
   Kokkos::deep_copy(globals.chunk.hm_bottom_snd_buffer, bottom_snd_buffer);
