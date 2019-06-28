@@ -54,11 +54,13 @@ int main(int argc, char *argv[]) {
   }
 
   // Struct to hold many global scope variables, from original definitions.f90
-  global_variables globals;
+  global_variables *globals = new global_variables;
 
-  initialise(parallel, globals);
+  initialise(parallel, *globals);
 
-  hydro(globals, parallel);
+  hydro(*globals, parallel);
+
+  delete globals;
   
   // Finilise programming models
   Kokkos::finalize();
