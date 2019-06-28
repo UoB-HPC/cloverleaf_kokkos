@@ -280,6 +280,16 @@ void clover_sum(double& value) {
   value = total;
 }
 
+void clover_min(double& value) {
+
+  double minimum = value;
+
+  MPI_Allreduce(&value, &minimum, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
+
+  value = minimum;
+
+}
+
 void clover_allgather(double value, double *values) {
 
   values[0] = value; // Just to ensure it will work in serial
