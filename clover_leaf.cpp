@@ -26,6 +26,7 @@
 
 #include "definitions.h"
 #include "comms.h"
+#include "hydro.h"
 #include "initialise.h"
 #include "version.h"
 
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]) {
 
   initialise(parallel, globals);
 
-  //CALL hydro
+  hydro(globals);
   
   // Finilise programming models
   Kokkos::finalize();
