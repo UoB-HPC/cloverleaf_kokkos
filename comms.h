@@ -38,6 +38,7 @@ void clover_allocate_buffers(global_variables& globals, parallel_& parallel);
 void clover_sum(double& value);
 void clover_min(double& value);
 void clover_allgather(double value, double *values);
+void clover_check_error(int& error);
 
 void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth);
 

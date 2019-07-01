@@ -296,6 +296,17 @@ void clover_allgather(double value, double *values) {
   MPI_Allgather(&value, 1, MPI_DOUBLE, values, 1, MPI_DOUBLE, MPI_COMM_WORLD);
 }
 
+
+void clover_check_error(int& error) {
+
+  int maximum = error;
+
+  MPI_Allreduce(&error, &maximum, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+
+  error = maximum;
+
+}
+
 void clover_exchange(global_variables& globals, int fields[NUM_FIELDS], const int depth) {
 
   // Assuming 1 patch per task, this will be changed
