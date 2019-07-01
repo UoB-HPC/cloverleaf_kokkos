@@ -7,6 +7,7 @@
 #include "PdV.h"
 #include "accelerate.h"
 #include "flux_calc.h"
+#include "advection.h"
 #include "reset_field.h"
 
 #include <algorithm>
@@ -45,7 +46,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     flux_calc(globals);
 
-    // CALL advection()
+    advection(globals);
 
     reset_field(globals);
 

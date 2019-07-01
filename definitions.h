@@ -41,6 +41,10 @@ enum data_parameter {
   y_face_data = 4
 };
 
+enum dir_parameter {
+  g_xdir = 1, g_ydir = 2
+};
+
 struct state_type {
 
   bool defined;
