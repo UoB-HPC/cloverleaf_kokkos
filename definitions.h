@@ -178,7 +178,7 @@ struct global_variables {
 
   int tiles_per_chunk;
 
-  int errpr_condition;
+  int error_condition;
 
   int test_problem;
   bool complete;

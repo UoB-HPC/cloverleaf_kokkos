@@ -4,6 +4,7 @@
 #include "field_summary.h"
 #include "visit.h"
 #include "timestep.h"
+#include "PdV.h"
 #include "accelerate.h"
 #include "flux_calc.h"
 #include "reset_field.h"
@@ -36,11 +37,11 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     timestep(globals, parallel);
 
-    // CALL PdV(.TRUE.)
+    PdV(globals, true);
 
     accelerate(globals);
 
-    // CALL PdV(.FALSE.)
+    PdV(globals, false);
 
     flux_calc(globals);
 
