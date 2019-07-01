@@ -5,6 +5,7 @@
 #include "visit.h"
 #include "timestep.h"
 #include "accelerate.h"
+#include "flux_calc.h"
 
 #include <algorithm>
 
@@ -40,7 +41,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     // CALL PdV(.FALSE.)
 
-    // CALL flux_calc()
+    flux_calc(globals);
 
     // CALL advection()
 
