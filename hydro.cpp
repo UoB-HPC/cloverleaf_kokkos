@@ -4,6 +4,7 @@
 #include "field_summary.h"
 #include "visit.h"
 #include "timestep.h"
+#include "accelerate.h"
 
 #include <algorithm>
 
@@ -35,7 +36,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     // CALL PdV(.TRUE.)
 
-    // CALL accelerate()
+    accelerate(globals);
 
     // CALL PdV(.FALSE.)
 
