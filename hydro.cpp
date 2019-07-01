@@ -6,6 +6,7 @@
 #include "timestep.h"
 #include "accelerate.h"
 #include "flux_calc.h"
+#include "reset_field.h"
 
 #include <algorithm>
 
@@ -45,7 +46,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
     // CALL advection()
 
-    // CALL reset_field()
+    reset_field(globals);
 
     globals.advect_x = !globals.advect_x;
 
