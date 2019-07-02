@@ -6,7 +6,7 @@ include $(KOKKOS_PATH)/Makefile.kokkos
 CXX = mpic++
 
 OBJ = \
-  accelerate.o advection.o advec_cell.o advect_mom.o \
+  accelerate.o advection.o advec_cell.o advec_mom.o \
   build_field.o calc_dt.o clover_leaf.o comms.o \
   field_summary.o flux_calc.o generate_chunk.o hydro.o \
   ideal_gas.o initialise.o initialise_chunk.o pack_kernel.o \
