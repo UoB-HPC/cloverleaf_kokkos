@@ -96,7 +96,7 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double*>::HostMirror hm_vertexx = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.vertexx);
       Kokkos::deep_copy(hm_vertexx, globals.chunk.tiles[tile].field.vertexx);
 
-      for (int j=globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
+      for (int j=globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1+1; ++j) {
         u << hm_vertexx(j) << std::endl;
       }
 
@@ -105,7 +105,7 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double*>::HostMirror hm_vertexy = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.vertexy);
       Kokkos::deep_copy(hm_vertexy, globals.chunk.tiles[tile].field.vertexy);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1+1; ++k) {
         u << hm_vertexy(k) << std::endl;
       }
 
@@ -118,8 +118,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_density0 = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.density0);
       Kokkos::deep_copy(hm_density0, globals.chunk.tiles[tile].field.density0);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
           u << hm_density0(j,k) << std::endl;
         }
       }
@@ -128,8 +128,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_energy0 = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.energy0);
       Kokkos::deep_copy(hm_energy0, globals.chunk.tiles[tile].field.energy0);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
           u << hm_energy0(j,k) << std::endl;
         }
       }
@@ -139,8 +139,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_pressure = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.pressure);
       Kokkos::deep_copy(hm_pressure, globals.chunk.tiles[tile].field.pressure);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
           u << hm_pressure(j,k) << std::endl;
         }
       }
@@ -149,8 +149,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_viscosity = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.viscosity);
       Kokkos::deep_copy(hm_viscosity, globals.chunk.tiles[tile].field.viscosity);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
           double temp = (fabs(hm_viscosity(j,k)) > 0.00000001) ? hm_viscosity(j,k) : 0.0;
           u << temp << std::endl;
         }
@@ -162,8 +162,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_xvel0 = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.xvel0);
       Kokkos::deep_copy(hm_xvel0, globals.chunk.tiles[tile].field.xvel0);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1+1; ++j) {
           double temp = (fabs(hm_xvel0(j,k)) > 0.00000001) ? hm_xvel0(j,k) : 0.0;
           u << temp << std::endl;
         }
@@ -172,8 +172,8 @@ void visit(global_variables& globals, parallel_& parallel) {
       typename Kokkos::View<double**>::HostMirror hm_yvel0 = Kokkos::create_mirror_view(globals.chunk.tiles[tile].field.yvel0);
       Kokkos::deep_copy(hm_yvel0, globals.chunk.tiles[tile].field.yvel0);
 
-      for (int k = globals.chunk.tiles[tile].t_ymin; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
-        for (int j = globals.chunk.tiles[tile].t_xmin; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
+      for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1+1; ++k) {
+        for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1+1; ++j) {
           double temp = (fabs(hm_yvel0(j,k)) > 0.00000001) ? hm_yvel0(j,k) : 0.0;
           u << temp << std::endl;
         }
