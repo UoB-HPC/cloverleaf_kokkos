@@ -92,8 +92,8 @@ void calc_dt_kernel(
   jk_control = jk_control-(jk_control-(int)(jk_control));
   jldt = ((int)jk_control) % x_max;
   kldt = 1+(jk_control/x_max);
-  xl_pos = cellx(jldt);
-  yl_pos = celly(kldt);
+  xl_pos = cellx(jldt+1); // Offset by 1 because of Fortran halos in original code
+  yl_pos = celly(kldt+1);
 
   if (dt_min_val < dtmin) small=1;
 
