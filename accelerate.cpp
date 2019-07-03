@@ -22,7 +22,7 @@ void accelerate_kernel(
 
   double halfdt = 0.5 * dt;
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min, y_min}, {x_max+1, y_max+1});
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1+1, y_max+1+1});
   Kokkos::parallel_for("accelerate", policy, KOKKOS_LAMBDA (const int j, const int k) {
     double stepbymass_s = halfdt / ((density0(j-1,k-1) * volume(j-1,k-1)
       + density0(j  ,k-1) * volume(j  ,k-1)

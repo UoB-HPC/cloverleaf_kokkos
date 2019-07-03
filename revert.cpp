@@ -14,7 +14,7 @@ void revert_kernel(
   Kokkos::View<double**>& energy0,
   Kokkos::View<double**>& energy1) {
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min, y_min}, {x_max, y_max});
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1, y_max+1});
 
   Kokkos::parallel_for("revert", policy, KOKKOS_LAMBDA (const int j, const int k) {
 

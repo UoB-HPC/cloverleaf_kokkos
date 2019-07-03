@@ -40,7 +40,7 @@ void calc_dt_kernel(
   dt_min_val = g_big;
   double jk_control = 1.1;
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min, y_min}, {x_max, y_max});
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1, y_max+1});
   Kokkos::parallel_reduce("calc_dt", policy,
     KOKKOS_LAMBDA (const int j, const int k, double &dt_min_val) {
 

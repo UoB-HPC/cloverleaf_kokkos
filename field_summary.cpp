@@ -59,8 +59,8 @@ struct field_summary_functor {
       result.ke = 0.0;
       result.press = 0.0;
 
-      const int j = x_min + i % (x_max-x_min+1);
-      const int k = y_min + i / (x_max-x_min+1);
+      const int j = x_min+1 + i % (x_max-x_min+1);
+      const int k = y_min+1 + i / (x_max-x_min+1);
 
       //
       // START OF THE KERNEL

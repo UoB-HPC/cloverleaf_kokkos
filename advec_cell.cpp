@@ -33,7 +33,7 @@ void advec_cell_kernel(
 
   if (dir == g_xdir) {
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2, y_min-2}, {x_max+2, y_max+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2+1, y_min-2+1}, {x_max+2+1, y_max+2+1});
 
     if (sweep_number ==  1) {
       Kokkos::parallel_for("advec_cell xdir sweep_number=1", policy, KOKKOS_LAMBDA (const int j, const int k) {
@@ -49,7 +49,7 @@ void advec_cell_kernel(
       });
     }
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_x2({x_min, y_min}, {x_max+2, y_max});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_x2({x_min+1, y_min+1}, {x_max+2+1, y_max+1});
     Kokkos::parallel_for("advec_cell xdir ener_flux", policy_x2, KOKKOS_LAMBDA (const int j, const int k) {
 
         int upwind, donor, downwind, dif;
@@ -104,7 +104,7 @@ void advec_cell_kernel(
     });
 
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_xy({x_min, y_min}, {x_max, y_max});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_xy({x_min+1, y_min+1}, {x_max+1, y_max+1});
     Kokkos::parallel_for("advec_cell xdir density1,energy1", policy_xy, KOKKOS_LAMBDA (const int j, const int k) {
         double pre_mass_s=density1(j,k)*pre_vol(j,k);
         double post_mass_s=pre_mass_s+mass_flux_x(j,k)-mass_flux_x(j+1,k);
@@ -117,7 +117,7 @@ void advec_cell_kernel(
 
   else if (dir == g_ydir) {
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2, y_min-2}, {x_max+2, y_max+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2+1, y_min-2+1}, {x_max+2+1, y_max+2+1});
 
     if (sweep_number == 1) {
       Kokkos::parallel_for("advec_cell ydir sweep_number=1", policy, KOKKOS_LAMBDA (const int j, const int k) {
@@ -133,7 +133,7 @@ void advec_cell_kernel(
       });
     }
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_y2({x_min, y_min}, {x_max, y_max+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_y2({x_min+1, y_min+1}, {x_max+1, y_max+2+1});
     Kokkos::parallel_for("advec_cell ydir ener_flux", policy_y2, KOKKOS_LAMBDA (const int j, const int k) {
 
         int upwind, donor, downwind, dif;
@@ -187,7 +187,7 @@ void advec_cell_kernel(
         ener_flux(j,k)=mass_flux_y(j,k)*(energy1(j,donor)+limiter);
     });
 
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_xy({x_min, y_min}, {x_max, y_max});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_xy({x_min+1, y_min+1}, {x_max+1, y_max+1});
     Kokkos::parallel_for("advec_cell ydir density1,energy1", policy_xy, KOKKOS_LAMBDA (const int j, const int k) {
 
         double pre_mass_s=density1(j,k)*pre_vol(j,k);
