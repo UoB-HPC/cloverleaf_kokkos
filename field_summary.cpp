@@ -3,6 +3,8 @@
 #include "timer.h"
 #include "ideal_gas.h"
 
+#include <iomanip>
+
 extern std::ostream g_out;
 
 //  @brief Fortran field summary kernel
@@ -130,14 +132,14 @@ void field_summary(global_variables& globals, parallel_ &parallel) {
   if (parallel.boss) {
     g_out << std::endl
       << "Time " << globals.time << std::endl
-      << "               "
-      << "Volume         "
-      << "Mass           "
-      << "Density        "
-      << "Pressure       "
-      << "Internal Energy"
-      << "Kinetic Energy "
-      << "Total Energy   " << std::endl;
+      << "                "
+      << "Volume          "
+      << "Mass            "
+      << "Density         "
+      << "Pressure        "
+      << "Internal Energy "
+      << "Kinetic Energy  "
+      << "Total Energy    " << std::endl;
   }
 
   double kernel_time;
@@ -194,8 +196,18 @@ void field_summary(global_variables& globals, parallel_ &parallel) {
   if (globals.profiler_on) globals.profiler.summary += timer()-kernel_time;
 
   if (parallel.boss) {
-    g_out << " step:" << globals.step << " " << vol << " " << mass << " " << mass/vol << " " << press/vol << " " << ie << " " << ke << " " << ie+ke << std::endl
+    auto formatting = g_out.flags();
+    g_out
+      << " step: " << globals.step
+      << std::scientific << std::setw(15) << vol
+      << std::scientific << std::setw(15) << mass
+      << std::scientific << std::setw(15) << mass/vol
+      << std::scientific << std::setw(15) << press/vol
+      << std::scientific << std::setw(15) << ie
+      << std::scientific << std::setw(15) << ke
+      << std::scientific << std::setw(15) << ie+ke << std::endl
      << std::endl;
+     g_out.flags(formatting);
   }
 
   if (globals.complete) {
