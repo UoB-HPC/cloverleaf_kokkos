@@ -116,7 +116,7 @@ void start(parallel_& parallel, global_variables& globals) {
 
   field_summary(globals, parallel);
 
-  if (globals.visit_frequency != 0) visit(globals);
+  if (globals.visit_frequency != 0) visit(globals, parallel);
 
   clover_barrier();
 

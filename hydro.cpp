@@ -58,7 +58,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
       if (globals.step % globals.summary_frequency == 0) field_summary(globals, parallel);
     }
     if (globals.visit_frequency != 0) {
-      if (globals.step % globals.visit_frequency == 0) visit(globals);
+      if (globals.step % globals.visit_frequency == 0) visit(globals, parallel);
     }
 
     // Sometimes there can be a significant start up cost that appears in the first step.
@@ -74,7 +74,7 @@ void hydro(global_variables& globals, parallel_& parallel) {
 
       globals.complete = true;
       field_summary(globals, parallel);
-      if (globals.visit_frequency != 0) visit(globals);
+      if (globals.visit_frequency != 0) visit(globals, parallel);
 
       wall_clock=timer() - timerstart;
       if (parallel.boss ) {

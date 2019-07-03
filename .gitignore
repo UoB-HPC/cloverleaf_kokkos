@@ -2,4 +2,6 @@
 .*.swp
 *.o
 clover_leaf
+clover.visit
+*.vtk
 
