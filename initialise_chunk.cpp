@@ -43,12 +43,12 @@ void initialise_chunk(const int tile, global_variables& globals) {
   size_t yrange = (y_max+3) - (y_min-2) + 1;
 
   Kokkos::parallel_for(xrange, KOKKOS_LAMBDA (const int j) {
-    globals.chunk.tiles[tile].field.vertexx(j) = xmin + dx*(double)(j-x_min);
+    globals.chunk.tiles[tile].field.vertexx(j) = xmin + dx*(double)(j-1-x_min);
     globals.chunk.tiles[tile].field.vertexdx(j) = dx;
   });
 
   Kokkos::parallel_for(yrange, KOKKOS_LAMBDA (const int k) {
-    globals.chunk.tiles[tile].field.vertexy(k) = ymin + dy*(double)(k-y_min);
+    globals.chunk.tiles[tile].field.vertexy(k) = ymin + dy*(double)(k-1-y_min);
     globals.chunk.tiles[tile].field.vertexdy(k) = dy;
   });
 
