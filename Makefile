@@ -11,7 +11,7 @@ OBJ = \
   field_summary.o flux_calc.o generate_chunk.o hydro.o \
   ideal_gas.o initialise.o initialise_chunk.o pack_kernel.o \
   PdV.o read_input.o report.o reset_field.o revert.o start.o timer.o \
-  timestep.o update_halo.o update_tile_halo.o viscosity.o visit.o
+  timestep.o update_halo.o update_tile_halo.o update_tile_halo_kernel.o viscosity.o visit.o
 
 clover_leaf: $(OBJ) $(KOKKOS_CPP_DEPENDS)
 	$(CXX) $(KOKKOS_LDFLAGS) -O3 $(OPTIONS) $(OBJ) $(KOKKOS_LIBS) -o $@
