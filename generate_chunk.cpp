@@ -68,7 +68,7 @@ void generate_chunk(const int tile, global_variables& globals) {
 
   size_t xrange = (x_max+2) - (x_min-2) + 1;
   size_t yrange = (y_max+2) - (y_min-2) + 1;
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> xyrange_policy({0,0}, {xrange+1, yrange+1});
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> xyrange_policy({0,0}, {xrange, yrange});
 
   // State 1 is always the background state
   Kokkos::parallel_for(xyrange_policy, KOKKOS_LAMBDA (const int j, const int k) {
