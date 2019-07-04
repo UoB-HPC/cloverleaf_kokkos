@@ -32,8 +32,10 @@ void PdV_kernel(
   Kokkos::View<double**>& yvel1,
   Kokkos::View<double**>& volume_change) {
 
-  
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1, y_max+1});
+
+  // DO k=y_min,y_max
+  //   DO j=x_min,x_max  
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+2, y_max+2});
 
   if (predict) {
 

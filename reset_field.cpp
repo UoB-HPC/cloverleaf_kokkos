@@ -17,7 +17,9 @@ void reset_field_kernel(
   Kokkos::View<double**>& yvel0,
   Kokkos::View<double**>& yvel1) {
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy1({x_min+1, y_min+1}, {x_max+1, y_max+1});
+  // DO k=y_min,y_max
+  //   DO j=x_min,x_max
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy1({x_min+1, y_min+1}, {x_max+2, y_max+2});
   Kokkos::parallel_for("reset_field_1", policy1, KOKKOS_LAMBDA (const int j, const int k) {
 
     density0(j,k)=density1(j,k);
@@ -25,7 +27,9 @@ void reset_field_kernel(
 
   });
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy2({x_min+1, y_min+1}, {x_max+1+1, y_max+1+1});
+  // DO k=y_min,y_max+1
+  //   DO j=x_min,x_max+1
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy2({x_min+1, y_min+1}, {x_max+1+2, y_max+1+2});
   Kokkos::parallel_for("reset_field_2", policy2, KOKKOS_LAMBDA (const int j, const int k) {
     xvel0(j,k) = xvel1(j,k);
     yvel0(j,k) = yvel1(j,k);

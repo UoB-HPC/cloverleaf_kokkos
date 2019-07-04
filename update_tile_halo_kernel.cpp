@@ -48,8 +48,9 @@ void update_tile_halo_l_kernel(
 
   // Density 0
   if (fields[field_density0] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l density0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           density0(x_min-j,k)=left_density0(left_xmax+1-j,k);
@@ -59,8 +60,9 @@ void update_tile_halo_l_kernel(
 
   // Density 1
   if (fields[field_density1] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l density1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           density1(x_min-j,k)=left_density1(left_xmax+1-j,k);
@@ -70,8 +72,9 @@ void update_tile_halo_l_kernel(
 
   // Energy 0
   if (fields[field_energy0] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l energy0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           energy0(x_min-j,k)=left_energy0(left_xmax+1-j,k);
@@ -81,8 +84,9 @@ void update_tile_halo_l_kernel(
 
   // Energy 1
   if (fields[field_energy1] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l energy1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           energy1(x_min-j,k)=left_energy1(left_xmax+1-j,k);
@@ -93,8 +97,9 @@ void update_tile_halo_l_kernel(
 
   // Pressure
   if (fields[field_pressure] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l pressure",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           pressure(x_min-j,k)=left_pressure(left_xmax+1-j,k);
@@ -104,8 +109,9 @@ void update_tile_halo_l_kernel(
   
   // Viscosity
   if (fields[field_viscosity] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l viscosity",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           viscosity(x_min-j,k)=left_viscosity(left_xmax+1-j,k);
@@ -115,8 +121,9 @@ void update_tile_halo_l_kernel(
 
   // Soundspeed
   if (fields[field_soundspeed] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l soundspeed",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           soundspeed(x_min-j,k)=left_soundspeed(left_xmax+1-j,k);
@@ -127,8 +134,9 @@ void update_tile_halo_l_kernel(
 
   // XVEL 0
   if (fields[field_xvel0] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l xvel0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           xvel0(x_min-j,k)=left_xvel0(left_xmax+1-j,k);
@@ -138,8 +146,9 @@ void update_tile_halo_l_kernel(
 
   // XVEL 1
   if (fields[field_xvel1] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l xvel1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           xvel1(x_min-j,k)=left_xvel1(left_xmax+1-j,k);
@@ -149,8 +158,9 @@ void update_tile_halo_l_kernel(
 
   // YVEL 0
   if (fields[field_yvel0] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l yvel0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           yvel0(x_min-j,k)=left_yvel0(left_xmax+1-j,k);
@@ -160,8 +170,9 @@ void update_tile_halo_l_kernel(
 
   // YVEL 1
   if (fields[field_yvel1] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l yvel1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           yvel1(x_min-j,k)=left_yvel1(left_xmax+1-j,k);
@@ -172,8 +183,9 @@ void update_tile_halo_l_kernel(
 
   // VOL_FLUX_X
   if (fields[field_vol_flux_x] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l vol_flux_x",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           vol_flux_x(x_min-j,k)=left_vol_flux_x(left_xmax+1-j,k);
@@ -183,8 +195,9 @@ void update_tile_halo_l_kernel(
 
   // MASS_FLUX_X
   if (fields[field_mass_flux_x] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_l mass_flux_x",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           mass_flux_x(x_min-j,k)=left_mass_flux_x(left_xmax+1-j,k);
@@ -194,8 +207,9 @@ void update_tile_halo_l_kernel(
 
   // VOL_FLUX_Y
   if (fields[field_vol_flux_y] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l vol_flux_y",
-    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 1; j <= depth; ++j) {
         vol_flux_y(x_min-j,k)=left_vol_flux_y(left_xmax+1-j,k);
@@ -205,8 +219,9 @@ void update_tile_halo_l_kernel(
 
   // MASS_FLUX_Y
   if (fields[field_mass_flux_y] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_l mass_flux_y",
-    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 1; j <= depth; ++j) {
         mass_flux_y(x_min-j,k)=left_mass_flux_y(left_xmax+1-j,k);
@@ -254,8 +269,9 @@ void update_tile_halo_r_kernel(
 
   // Density 0
   if (fields[field_density0] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r density0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           density0(x_max+j,k)=right_density0(right_xmin-1+j,k);
@@ -265,8 +281,9 @@ void update_tile_halo_r_kernel(
 
   // Density 1
   if (fields[field_density1] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r density1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           density1(x_max+j,k)=right_density1(right_xmin-1+j,k);
@@ -276,8 +293,9 @@ void update_tile_halo_r_kernel(
 
   // Energy 0
   if (fields[field_energy0] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r energy0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           energy0(x_max+j,k)=right_energy0(right_xmin-1+j,k);
@@ -287,8 +305,9 @@ void update_tile_halo_r_kernel(
 
   // Energy 1
   if (fields[field_energy1] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r energy1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           energy1(x_max+j,k)=right_energy1(right_xmin-1+j,k);
@@ -299,8 +318,9 @@ void update_tile_halo_r_kernel(
 
   // Pressure
   if (fields[field_pressure] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r pressure",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           pressure(x_max+j,k)=right_pressure(right_xmin-1+j,k);
@@ -310,8 +330,9 @@ void update_tile_halo_r_kernel(
   
   // Viscosity
   if (fields[field_viscosity] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r viscosity",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           viscosity(x_max+j,k)=right_viscosity(right_xmin-1+j,k);
@@ -321,8 +342,9 @@ void update_tile_halo_r_kernel(
 
   // Soundspeed
   if (fields[field_soundspeed] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r soundspeed",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           soundspeed(x_max+j,k)=right_soundspeed(right_xmin-1+j,k);
@@ -333,8 +355,9 @@ void update_tile_halo_r_kernel(
 
   // XVEL 0
   if (fields[field_xvel0] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r xvel0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           xvel0(x_max+1+j,k)=right_xvel0(right_xmin+1-1+j,k);
@@ -344,8 +367,9 @@ void update_tile_halo_r_kernel(
 
   // XVEL 1
   if (fields[field_xvel1] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r xvel1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           xvel1(x_max+1+j,k)=right_xvel1(right_xmin+1-1+j,k);
@@ -355,8 +379,9 @@ void update_tile_halo_r_kernel(
 
   // YVEL 0
   if (fields[field_yvel0] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r yvel0",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           yvel0(x_max+1+j,k)=right_yvel0(right_xmin+1-1+j,k);
@@ -366,8 +391,9 @@ void update_tile_halo_r_kernel(
 
   // YVEL 1
   if (fields[field_yvel1] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r yvel1",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           yvel1(x_max+1+j,k)=right_yvel1(right_xmin+1-1+j,k);
@@ -378,8 +404,9 @@ void update_tile_halo_r_kernel(
 
   // VOL_FLUX_X
   if (fields[field_vol_flux_x] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r vol_flux_x",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           vol_flux_x(x_max+1+j,k)=right_vol_flux_x(right_xmin+1-1+j,k);
@@ -389,8 +416,9 @@ void update_tile_halo_r_kernel(
 
   // MASS_FLUX_X
   if (fields[field_mass_flux_x] == 1) {
+    // DO k=y_min-depth,y_max+depth
     Kokkos::parallel_for("update_tile_halo_r mass_flux_x",
-      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+1),
+      Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 1; j <= depth; ++j) {
           mass_flux_x(x_max+1+j,k)=right_mass_flux_x(right_xmin+1-1+j,k);
@@ -400,8 +428,9 @@ void update_tile_halo_r_kernel(
 
   // VOL_FLUX_Y
   if (fields[field_vol_flux_y] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r vol_flux_y",
-    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 1; j <= depth; ++j) {
         vol_flux_y(x_max+j,k)=right_vol_flux_y(right_xmin-1+j,k);
@@ -411,8 +440,9 @@ void update_tile_halo_r_kernel(
 
   // MASS_FLUX_Y
   if (fields[field_mass_flux_y] == 1) {
+    // DO k=y_min-depth,y_max+1+depth
     Kokkos::parallel_for("update_tile_halo_r mass_flux_y",
-    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+1),
+    Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 1; j <= depth; ++j) {
         mass_flux_y(x_max+j,k)=right_mass_flux_y(right_xmin-1+j,k);
@@ -463,9 +493,10 @@ void update_tile_halo_t_kernel(
 
     // Density 0
     if (fields[field_density0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel density0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             density0(j,y_max+k)=top_density0(j,top_ymin-1+k);
           });
@@ -474,9 +505,10 @@ void update_tile_halo_t_kernel(
 
     // Density 1
     if (fields[field_density1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel density1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             density1(j,y_max+k)=top_density1(j,top_ymin-1+k);
           });
@@ -485,9 +517,10 @@ void update_tile_halo_t_kernel(
 
     // Energy 0
     if (fields[field_energy0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel energy0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             energy0(j,y_max+k)=top_energy0(j,top_ymin-1+k);
           });
@@ -496,9 +529,10 @@ void update_tile_halo_t_kernel(
 
     // Energy 1
     if (fields[field_energy1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel energy1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             energy1(j,y_max+k)=top_energy1(j,top_ymin-1+k);
           });
@@ -508,9 +542,10 @@ void update_tile_halo_t_kernel(
 
     // Pressure
     if (fields[field_pressure] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel pressure",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             pressure(j,y_max+k)=top_pressure(j,top_ymin-1+k);
           });
@@ -519,9 +554,10 @@ void update_tile_halo_t_kernel(
 
     // Viscocity
     if (fields[field_viscosity] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel viscosity",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             viscosity(j,y_max+k)=top_viscosity(j,top_ymin-1+k);
           });
@@ -530,9 +566,10 @@ void update_tile_halo_t_kernel(
 
     // Soundspeed
     if (fields[field_soundspeed] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel soundspeed",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             soundspeed(j,y_max+k)=top_soundspeed(j,top_ymin-1+k);
           });
@@ -542,9 +579,10 @@ void update_tile_halo_t_kernel(
 
     // XVEL 0
     if (fields[field_xvel0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             xvel0(j,y_max+1+k)=top_xvel0(j,top_ymin+1-1+k);
           });
@@ -553,9 +591,10 @@ void update_tile_halo_t_kernel(
 
     // XVEL 1
     if (fields[field_xvel1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             xvel1(j,y_max+1+k)=top_xvel1(j,top_ymin+1-1+k);
           });
@@ -564,9 +603,10 @@ void update_tile_halo_t_kernel(
 
     // YVEL 0
     if (fields[field_yvel0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             yvel0(j,y_max+1+k)=top_yvel0(j,top_ymin+1-1+k);
           });
@@ -575,9 +615,10 @@ void update_tile_halo_t_kernel(
 
     // YVEL 1
     if (fields[field_yvel1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             yvel1(j,y_max+1+k)=top_yvel1(j,top_ymin+1-1+k);
           });
@@ -586,9 +627,10 @@ void update_tile_halo_t_kernel(
 
     // VOL_FLUX_X
     if (fields[field_vol_flux_x] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_x",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             vol_flux_x(j,y_max+k)=top_vol_flux_x(j,top_ymin-1+k);
           });
@@ -597,9 +639,10 @@ void update_tile_halo_t_kernel(
 
     // MASS_FLUX_X
     if (fields[field_mass_flux_x] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_x",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             mass_flux_x(j,y_max+k)=top_mass_flux_x(j,top_ymin-1+k);
           });
@@ -608,9 +651,10 @@ void update_tile_halo_t_kernel(
 
     // VOL_FLUX_Y
     if (fields[field_vol_flux_y] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_y",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             vol_flux_y(j,y_max+1+k)=top_vol_flux_y(j,top_ymin+1-1+k);
           });
@@ -619,9 +663,10 @@ void update_tile_halo_t_kernel(
 
     // MASS_FLUX_Y
     if (fields[field_mass_flux_y] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_y",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             mass_flux_y(j,y_max+1+k)=top_mass_flux_y(j,top_ymin+1-1+k);
           });
@@ -668,9 +713,10 @@ void update_tile_halo_b_kernel(
 
     // Density 0
     if (fields[field_density0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel density0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             density0(j,y_min-k)=bottom_density0(j,bottom_ymax+1-k);
           });
@@ -679,9 +725,10 @@ void update_tile_halo_b_kernel(
 
     // Density 1
     if (fields[field_density1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel density1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             density1(j,y_min-k)=bottom_density1(j,bottom_ymax+1-k);
           });
@@ -690,9 +737,10 @@ void update_tile_halo_b_kernel(
 
     // Energy 0
     if (fields[field_energy0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel energy0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             energy0(j,y_min-k)=bottom_energy0(j,bottom_ymax+1-k);
           });
@@ -701,9 +749,10 @@ void update_tile_halo_b_kernel(
 
     // Energy 1
     if (fields[field_energy1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel energy1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             energy1(j,y_min-k)=bottom_energy1(j,bottom_ymax+1-k);
           });
@@ -713,9 +762,10 @@ void update_tile_halo_b_kernel(
 
     // Pressure
     if (fields[field_pressure] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel pressure",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             pressure(j,y_min-k)=bottom_pressure(j,bottom_ymax+1-k);
           });
@@ -724,9 +774,10 @@ void update_tile_halo_b_kernel(
 
     // Viscocity
     if (fields[field_viscosity] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel viscosity",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             viscosity(j,y_min-k)=bottom_viscosity(j,bottom_ymax+1-k);
           });
@@ -735,9 +786,10 @@ void update_tile_halo_b_kernel(
 
     // Soundspeed
     if (fields[field_soundspeed] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        //  DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel soundspeed",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             soundspeed(j,y_min-k)=bottom_soundspeed(j,bottom_ymax+1-k);
           });
@@ -747,9 +799,10 @@ void update_tile_halo_b_kernel(
 
     // XVEL 0
     if (fields[field_xvel0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             xvel0(j,y_min-k)=bottom_xvel0(j,bottom_ymax+1-k);
           });
@@ -758,9 +811,10 @@ void update_tile_halo_b_kernel(
 
     // XVEL 1
     if (fields[field_xvel1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             xvel1(j,y_min-k)=bottom_xvel1(j,bottom_ymax+1-k);
           });
@@ -769,9 +823,10 @@ void update_tile_halo_b_kernel(
 
     // YVEL 0
     if (fields[field_yvel0] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel0",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             yvel0(j,y_min-k)=bottom_yvel0(j,bottom_ymax+1-k);
           });
@@ -780,9 +835,10 @@ void update_tile_halo_b_kernel(
 
     // YVEL 1
     if (fields[field_yvel1] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel1",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             yvel1(j,y_min-k)=bottom_yvel1(j,bottom_ymax+1-k);
           });
@@ -791,9 +847,10 @@ void update_tile_halo_b_kernel(
 
     // VOL_FLUX_X
     if (fields[field_vol_flux_x] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_x",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             vol_flux_x(j,y_min-k)=bottom_vol_flux_x(j,bottom_ymax+1-k);
           });
@@ -802,9 +859,10 @@ void update_tile_halo_b_kernel(
 
     // MASS_FLUX_X
     if (fields[field_mass_flux_x] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+1+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_x",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
             mass_flux_x(j,y_min-k)=bottom_mass_flux_x(j,bottom_ymax+1-k);
           });
@@ -813,9 +871,10 @@ void update_tile_halo_b_kernel(
 
     // VOL_FLUX_Y
     if (fields[field_vol_flux_y] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_y",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             vol_flux_y(j,y_min-k)=bottom_vol_flux_y(j,bottom_ymax+1-k);
           });
@@ -824,9 +883,10 @@ void update_tile_halo_b_kernel(
 
     // MASS_FLUX_Y
     if (fields[field_mass_flux_y] == 1) {
-      for (int k = 1; k < depth; ++k) {
+      for (int k = 1; k <= depth; ++k) {
+        // DO j=x_min-depth, x_max+depth
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_y",
-          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+1),
+          Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
             mass_flux_y(j,y_min-k)=bottom_mass_flux_y(j,bottom_ymax+1-k);
           });

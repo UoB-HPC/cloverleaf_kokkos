@@ -30,7 +30,9 @@ void advec_mom_kernel(
 
   int mom_sweep=direction+2*(sweep_number-1);
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2+1, y_min-2+1}, {x_max+2+1, y_max+2+1});
+  // DO k=y_min-2,y_max+2
+  //   DO j=x_min-2,x_max+2
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min-2+1, y_min-2+1}, {x_max+2+2, y_max+2+2});
 
   if (mom_sweep == 1) { // x 1
     Kokkos::parallel_for("advec_mom x1", policy, KOKKOS_LAMBDA(const int j, const int k) {
@@ -59,16 +61,20 @@ void advec_mom_kernel(
 
   if (direction == 1) {
     if (which_vel == 1) {
+      // DO k=y_min,y_max+1
+      //   DO j=x_min-2,x_max+2
       Kokkos::parallel_for("advec_mom dir1, vel1, node_flux",
-        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-2+1, y_min+1}, {x_max+2+1, y_max+1+1}),
+        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-2+1, y_min+1}, {x_max+2+2, y_max+1+2}),
         KOKKOS_LAMBDA (const int j, const int k) {
           // Find staggered mesh mass fluxes, nodal masses and volumes.
           node_flux(j,k)=0.25*(mass_flux_x(j,k-1  )+mass_flux_x(j  ,k)
             +mass_flux_x(j+1,k-1)+mass_flux_x(j+1,k));
         });
 
+      // DO k=y_min,y_max+1
+      //   DO j=x_min-1,x_max+2
       Kokkos::parallel_for("advec_mom dir1, vel1, node_mass_pre",
-        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-1+1, y_min+1}, {x_max+2+1, y_max+1+1}),
+        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-1+1, y_min+1}, {x_max+2+2, y_max+1+2}),
         KOKKOS_LAMBDA (const int j, const int k) {
           // Staggered cell mass post advection
           node_mass_post(j,k)=0.25*(density1(j  ,k-1)*post_vol(j  ,k-1)
@@ -79,8 +85,10 @@ void advec_mom_kernel(
         });
     }
 
+    // DO k=y_min,y_max+1
+    //  DO j=x_min-1,x_max+1
     Kokkos::parallel_for("advec_mom dir1, mom_flux",
-      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-1+1, y_min+1}, {x_max+1+1, y_max+1+1}),
+      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min-1+1, y_min+1}, {x_max+1+2, y_max+1+2}),
       KOKKOS_LAMBDA (const int j, const int k) {
 
         int upwind, donor, downwind, dif;
@@ -115,16 +123,20 @@ void advec_mom_kernel(
         mom_flux(j,k)=advec_vel_s*node_flux(j,k);
       });
 
+    // DO k=y_min,y_max+1
+    //   DO j=x_min,x_max+1
     Kokkos::parallel_for("advec_mom dir1, vel1",
-      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min+1}, {x_max+1+1, y_max+1+1}),
+      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min+1}, {x_max+1+2, y_max+1+2}),
       KOKKOS_LAMBDA (const int j, const int k) {
         vel1 (j,k)=(vel1 (j,k)*node_mass_pre(j,k)+mom_flux(j-1,k)-mom_flux(j,k))/node_mass_post(j,k);
       });
   }
   else if (direction == 2) {
     if (which_vel == 1) {
+      // DO k=y_min-2,y_max+2
+      //   DO j=x_min,x_max+1
       Kokkos::parallel_for("advec_mom dir2, vel1, node_flux",
-        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-2+1}, {x_max+1+1, y_max+2+1}),
+        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-2+1}, {x_max+1+2, y_max+2+2}),
         KOKKOS_LAMBDA (const int j, const int k) {
           // Find staggered mesh mass fluxes and nodal masses and volumes.
           node_flux(j,k)=0.25*(mass_flux_y(j-1,k  )+mass_flux_y(j  ,k  )
@@ -132,8 +144,10 @@ void advec_mom_kernel(
         });
 
 
+      // DO k=y_min-1,y_max+2
+      //   DO j=x_min,x_max+1
       Kokkos::parallel_for("advec_mom dir2, vel1, node_mass_pre",
-        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-1+1}, {x_max+1+1, y_max+2+1}),
+        Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-1+1}, {x_max+1+2, y_max+2+2}),
         KOKKOS_LAMBDA (const int j, const int k) {
           node_mass_post(j,k)=0.25*(density1(j  ,k-1)*post_vol(j  ,k-1)
             +density1(j  ,k  )*post_vol(j  ,k  )
@@ -143,8 +157,10 @@ void advec_mom_kernel(
         });
     }
 
+    // DO k=y_min-1,y_max+1
+    //   DO j=x_min,x_max+1
     Kokkos::parallel_for("advec_mom dir2, mom_flux",
-      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-1+1}, {x_max+1+1, y_max+1+1}),
+      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min-1+1}, {x_max+1+2, y_max+1+2}),
       KOKKOS_LAMBDA (const int j, const int k) {
 
         int upwind, donor, downwind, dif;
@@ -180,8 +196,10 @@ void advec_mom_kernel(
       });
 
 
+    // DO k=y_min,y_max+1
+    //   DO j=x_min,x_max+1
     Kokkos::parallel_for("advec_mom dir2, vel1",
-      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min+1}, {x_max+1+1, y_max+1+1}),
+      Kokkos::MDRangePolicy<Kokkos::Rank<2>>({x_min+1, y_min+1}, {x_max+1+2, y_max+1+2}),
       KOKKOS_LAMBDA (const int j, const int k) {
         vel1 (j,k)=(vel1(j,k)*node_mass_pre(j,k)+mom_flux(j,k-1)-mom_flux(j,k))/node_mass_post(j,k);
       });

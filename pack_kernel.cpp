@@ -32,7 +32,8 @@ void clover_pack_message_left(int x_min, int x_max, int y_min, int y_max,
     y_inc = 1;
   }
 
-  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+1+1);
+  // DO k=y_min-depth,y_max+y_inc+depth
+  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+2);
   Kokkos::parallel_for("clover_pack_message_left", range, KOKKOS_LAMBDA (const int k) {
     for (int j = 1; j <= depth; ++j) {
       int index = buffer_offset + j + (k+depth-1) * depth;
@@ -70,7 +71,8 @@ void clover_unpack_message_left(int x_min, int x_max, int y_min, int y_max,
     y_inc = 1;
   }
 
-  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+1+1);
+  // DO k=y_min-depth,y_max+y_inc+depth
+  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+2);
   Kokkos::parallel_for("clover_unpack_message_left", range, KOKKOS_LAMBDA (const int k) {
     for (int j = 1; j <= depth; ++j) {
       int index = buffer_offset + j + (k+depth-1) * depth;
@@ -108,7 +110,8 @@ void clover_pack_message_right(int x_min, int x_max, int y_min, int y_max,
     y_inc = 1;
   }
 
-  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+1+1);
+  // DO k=y_min-depth,y_max+y_inc+depth
+  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+2);
   Kokkos::parallel_for("clover_pack_message_right", range, KOKKOS_LAMBDA (const int k) {
     for (int j = 1; j <= depth; ++j) {
       int index = buffer_offset + j + (k+depth-1) * depth;
@@ -146,7 +149,8 @@ void clover_unpack_message_right(int x_min, int x_max, int y_min, int y_max,
     y_inc = 1;
   }
 
-  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+1+1);
+  // DO k=y_min-depth,y_max+y_inc+depth
+  Kokkos::RangePolicy<> range(y_min-depth+1, y_max+y_inc+depth+2);
   Kokkos::parallel_for("clover_pack_message_left", range, KOKKOS_LAMBDA (const int k) {
     for (int j = 1; j <= depth; ++j) {
       int index = buffer_offset + j + (k+depth-1) * depth;
@@ -184,7 +188,8 @@ void clover_pack_message_top(int x_min, int x_max, int y_min, int y_max,
   }
 
   for (int k = 1; k <= depth; ++k) {
-    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+1+1);
+    // DO j=x_min-depth,x_max+x_inc+depth
+    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+2);
     Kokkos::parallel_for("clover_pack_message_top", range, KOKKOS_LAMBDA (const int j) {
       int index = buffer_offset + k + (j+depth-1) * depth;
       top_snd_buffer(index) = field(j,y_max+1-k);
@@ -220,7 +225,8 @@ void clover_unpack_message_top(int x_min, int x_max, int y_min, int y_max,
   }
 
   for (int k = 1; k <= depth; ++k) {
-    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+1+1);
+    // DO j=x_min-depth,x_max+x_inc+depth
+    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+2);
     Kokkos::parallel_for("clover_unpack_message_top", range, KOKKOS_LAMBDA (const int j) {
       int index = buffer_offset + k + (j+depth-1) * depth;
       field(j,y_max+y_inc+k) = top_rcv_buffer(index);
@@ -257,7 +263,8 @@ void clover_pack_message_bottom(int x_min, int x_max, int y_min, int y_max,
   }
 
   for (int k = 1; k <= depth; ++k) {
-    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+1+1);
+    // DO j=x_min-depth,x_max+x_inc+depth
+    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+2);
     Kokkos::parallel_for("clover_pack_message_bottom", range, KOKKOS_LAMBDA (const int j) {
       int index = buffer_offset + k + (j+depth-1) * depth;
       bottom_snd_buffer(index) = field(j,y_min+y_inc-1+k);
@@ -293,7 +300,8 @@ void clover_unpack_message_bottom(int x_min, int x_max, int y_min, int y_max,
   }
 
   for (int k = 1; k <= depth; ++k) {
-    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+1+1);
+    // DO j=x_min-depth,x_max+x_inc+depth
+    Kokkos::RangePolicy<> range(x_min-depth+1, x_max+x_inc+depth+2);
     Kokkos::parallel_for("clover_unpack_message_top", range, KOKKOS_LAMBDA (const int j) {
       int index = buffer_offset + k + (j+depth-1) * depth;
       field(j,y_min-k) = bottom_rcv_buffer(index);

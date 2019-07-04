@@ -65,7 +65,7 @@ void initialise_chunk(const int tile, global_variables& globals) {
     globals.chunk.tiles[tile].field.celldy(k) = dy;
   });
 
-  Kokkos::parallel_for(Kokkos::MDRangePolicy<Kokkos::Rank<2>>({0,0}, {xrange, yrange}), KOKKOS_LAMBDA (const int j, const int k) {
+  Kokkos::parallel_for(Kokkos::MDRangePolicy<Kokkos::Rank<2>>({0,0}, {xrange+1, yrange+1}), KOKKOS_LAMBDA (const int j, const int k) {
     globals.chunk.tiles[tile].field.volume(j,k) = dx*dy;
     globals.chunk.tiles[tile].field.xarea(j,k) = globals.chunk.tiles[tile].field.celldy(k);
     globals.chunk.tiles[tile].field.yarea(j,k) = globals.chunk.tiles[tile].field.celldx(j);

@@ -18,7 +18,9 @@ void flux_calc_kernel(
   Kokkos::View<double**>& vol_flux_x,
   Kokkos::View<double**>& vol_flux_y) {
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1+1, y_max+1+1});
+  // DO k=y_min,y_max+1
+  //   DO j=x_min,x_max+1
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1+2, y_max+1+2});
 
   // Note that the loops calculate one extra flux than required, but this
   // allows loop fusion that improves performance

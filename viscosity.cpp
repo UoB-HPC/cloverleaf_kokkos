@@ -16,7 +16,9 @@ void viscosity_kernel(int x_min, int x_max, int y_min, int y_max,
   Kokkos::View<double**>& xvel0,
   Kokkos::View<double**>& yvel0) {
 
-  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+1, y_max+1});
+  // DO k=y_min,y_max
+  //   DO j=x_min,x_max
+  Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+2, y_max+2});
   Kokkos::parallel_for("viscosity", policy, KOKKOS_LAMBDA(const int j, const int k) {
 
     double ugrad = (xvel0(j+1,k  )+xvel0(j+1,k+1))-(xvel0(j  ,k  )+xvel0(j  ,k+1));
