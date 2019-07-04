@@ -6,6 +6,7 @@
 #include "viscosity.h"
 
 #include <fstream>
+#include <iomanip>
 
 //  @brief Generates graphics output files.
 //  @author Wayne Gaudin
