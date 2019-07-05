@@ -143,7 +143,7 @@ void advec_cell_kernel(
 
     // DO k=y_min,y_max+2
     //   DO j=x_min,x_max
-    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_y2({x_min+1, y_min+1}, {x_max+1, y_max+2+2});
+    Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy_y2({x_min+1, y_min+1}, {x_max+2, y_max+2+2});
     Kokkos::parallel_for("advec_cell ydir ener_flux", policy_y2, KOKKOS_LAMBDA (const int j, const int k) {
 
         int upwind, donor, downwind, dif;
