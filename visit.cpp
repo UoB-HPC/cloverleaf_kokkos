@@ -121,7 +121,7 @@ void visit(global_variables& globals, parallel_& parallel) {
 
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
-          u << hm_density0(j,k) << std::endl;
+          u << std::scientific << std::setprecision(3) << hm_density0(j,k) << std::endl;
         }
       }
 
@@ -131,7 +131,7 @@ void visit(global_variables& globals, parallel_& parallel) {
 
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
-          u << hm_energy0(j,k) << std::endl;
+          u << std::scientific << std::setprecision(3) << hm_energy0(j,k) << std::endl;
         }
       }
 
@@ -142,7 +142,7 @@ void visit(global_variables& globals, parallel_& parallel) {
 
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
-          u << hm_pressure(j,k) << std::endl;
+          u << std::scientific << std::setprecision(3) << hm_pressure(j,k) << std::endl;
         }
       }
 
@@ -153,7 +153,7 @@ void visit(global_variables& globals, parallel_& parallel) {
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1; ++j) {
           double temp = (fabs(hm_viscosity(j,k)) > 0.00000001) ? hm_viscosity(j,k) : 0.0;
-          u << temp << std::endl;
+          u << std::scientific << std::setprecision(3) << temp << std::endl;
         }
       }
 
@@ -166,7 +166,7 @@ void visit(global_variables& globals, parallel_& parallel) {
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1+1; ++j) {
           double temp = (fabs(hm_xvel0(j,k)) > 0.00000001) ? hm_xvel0(j,k) : 0.0;
-          u << temp << std::endl;
+          u << std::scientific << std::setprecision(3) << temp << std::endl;
         }
       }
       u << "y_vel 1 " << nxv*nyv << " double" << std::endl;
@@ -176,7 +176,7 @@ void visit(global_variables& globals, parallel_& parallel) {
       for (int k = globals.chunk.tiles[tile].t_ymin+1; k <= globals.chunk.tiles[tile].t_ymax+1+1; ++k) {
         for (int j = globals.chunk.tiles[tile].t_xmin+1; j <= globals.chunk.tiles[tile].t_xmax+1+1; ++j) {
           double temp = (fabs(hm_yvel0(j,k)) > 0.00000001) ? hm_yvel0(j,k) : 0.0;
-          u << temp << std::endl;
+          u << std::scientific << std::setprecision(3) << temp << std::endl;
         }
       }
       u.close();
