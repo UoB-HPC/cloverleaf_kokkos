@@ -274,7 +274,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          density0(x_max+j,k)=right_density0(right_xmin-1+j,k);
+          density0(x_max+2+j,k)=right_density0(right_xmin-1+2+j,k);
         }
       });
   }
@@ -286,7 +286,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          density1(x_max+j,k)=right_density1(right_xmin-1+j,k);
+          density1(x_max+2+j,k)=right_density1(right_xmin-1+2+j,k);
         }
       });
   }
@@ -298,7 +298,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          energy0(x_max+j,k)=right_energy0(right_xmin-1+j,k);
+          energy0(x_max+2+j,k)=right_energy0(right_xmin-1+2+j,k);
         }
       });
   }
@@ -310,7 +310,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          energy1(x_max+j,k)=right_energy1(right_xmin-1+j,k);
+          energy1(x_max+2+j,k)=right_energy1(right_xmin-1+2+j,k);
         }
       });
   }
@@ -323,7 +323,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          pressure(x_max+j,k)=right_pressure(right_xmin-1+j,k);
+          pressure(x_max+2+j,k)=right_pressure(right_xmin-1+2+j,k);
         }
       });
   }
@@ -335,7 +335,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          viscosity(x_max+j,k)=right_viscosity(right_xmin-1+j,k);
+          viscosity(x_max+2+j,k)=right_viscosity(right_xmin-1+2+j,k);
         }
       });
   }
@@ -347,7 +347,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          soundspeed(x_max+j,k)=right_soundspeed(right_xmin-1+j,k);
+          soundspeed(x_max+2+j,k)=right_soundspeed(right_xmin-1+2+j,k);
         }
       });
   }
@@ -360,7 +360,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          xvel0(x_max+1+j,k)=right_xvel0(right_xmin+1-1+j,k);
+          xvel0(x_max+1+2+j,k)=right_xvel0(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -372,7 +372,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          xvel1(x_max+1+j,k)=right_xvel1(right_xmin+1-1+j,k);
+          xvel1(x_max+1+2+j,k)=right_xvel1(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -384,7 +384,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          yvel0(x_max+1+j,k)=right_yvel0(right_xmin+1-1+j,k);
+          yvel0(x_max+1+2+j,k)=right_yvel0(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -396,7 +396,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          yvel1(x_max+1+j,k)=right_yvel1(right_xmin+1-1+j,k);
+          yvel1(x_max+1+2+j,k)=right_yvel1(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -409,7 +409,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          vol_flux_x(x_max+1+j,k)=right_vol_flux_x(right_xmin+1-1+j,k);
+          vol_flux_x(x_max+1+2+j,k)=right_vol_flux_x(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -421,7 +421,7 @@ void update_tile_halo_r_kernel(
       Kokkos::RangePolicy<>(y_min-depth+1, y_max+depth+2),
       KOKKOS_LAMBDA (const int k) {
         for (int j = 0; j < depth; ++j) {
-          mass_flux_x(x_max+1+j,k)=right_mass_flux_x(right_xmin+1-1+j,k);
+          mass_flux_x(x_max+1+2+j,k)=right_mass_flux_x(right_xmin+1-1+2+j,k);
         }
       });
   }
@@ -433,7 +433,7 @@ void update_tile_halo_r_kernel(
     Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 0; j < depth; ++j) {
-        vol_flux_y(x_max+j,k)=right_vol_flux_y(right_xmin-1+j,k);
+        vol_flux_y(x_max+2+j,k)=right_vol_flux_y(right_xmin-1+2+j,k);
       }
     });
   }
@@ -445,7 +445,7 @@ void update_tile_halo_r_kernel(
     Kokkos::RangePolicy<>(y_min-depth+1, y_max+1+depth+2),
     KOKKOS_LAMBDA (const int k) {
       for (int j = 0; j < depth; ++j) {
-        mass_flux_y(x_max+j,k)=right_mass_flux_y(right_xmin-1+j,k);
+        mass_flux_y(x_max+2+j,k)=right_mass_flux_y(right_xmin-1+2+j,k);
       }
     });
   }
@@ -498,7 +498,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel density0",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            density0(j,y_max+k)=top_density0(j,top_ymin-1+k);
+            density0(j,y_max+2+k)=top_density0(j,top_ymin-1+2+k);
           });
       }
     }
@@ -510,7 +510,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel density1",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            density1(j,y_max+k)=top_density1(j,top_ymin-1+k);
+            density1(j,y_max+2+k)=top_density1(j,top_ymin-1+2+k);
           });
       }
     }
@@ -522,7 +522,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel energy0",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            energy0(j,y_max+k)=top_energy0(j,top_ymin-1+k);
+            energy0(j,y_max+2+k)=top_energy0(j,top_ymin-1+2+k);
           });
       }
     }
@@ -534,7 +534,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel energy1",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            energy1(j,y_max+k)=top_energy1(j,top_ymin-1+k);
+            energy1(j,y_max+2+k)=top_energy1(j,top_ymin-1+2+k);
           });
       }
     }
@@ -547,7 +547,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel pressure",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            pressure(j,y_max+k)=top_pressure(j,top_ymin-1+k);
+            pressure(j,y_max+2+k)=top_pressure(j,top_ymin-1+2+k);
           });
       }
     }
@@ -559,7 +559,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel viscosity",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            viscosity(j,y_max+k)=top_viscosity(j,top_ymin-1+k);
+            viscosity(j,y_max+2+k)=top_viscosity(j,top_ymin-1+2+k);
           });
       }
     }
@@ -571,7 +571,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel soundspeed",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            soundspeed(j,y_max+k)=top_soundspeed(j,top_ymin-1+k);
+            soundspeed(j,y_max+2+k)=top_soundspeed(j,top_ymin-1+2+k);
           });
       }
     }
@@ -584,7 +584,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel0",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            xvel0(j,y_max+1+k)=top_xvel0(j,top_ymin+1-1+k);
+            xvel0(j,y_max+1+2+k)=top_xvel0(j,top_ymin+1-1+2+k);
           });
       }
     }
@@ -596,7 +596,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel xvel1",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            xvel1(j,y_max+1+k)=top_xvel1(j,top_ymin+1-1+k);
+            xvel1(j,y_max+1+2+k)=top_xvel1(j,top_ymin+1-1+2+k);
           });
       }
     }
@@ -608,7 +608,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel0",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            yvel0(j,y_max+1+k)=top_yvel0(j,top_ymin+1-1+k);
+            yvel0(j,y_max+1+2+k)=top_yvel0(j,top_ymin+1-1+2+k);
           });
       }
     }
@@ -620,7 +620,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel yvel1",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            yvel1(j,y_max+1+k)=top_yvel1(j,top_ymin+1-1+k);
+            yvel1(j,y_max+1+2+k)=top_yvel1(j,top_ymin+1-1+2+k);
           });
       }
     }
@@ -632,7 +632,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_x",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            vol_flux_x(j,y_max+k)=top_vol_flux_x(j,top_ymin-1+k);
+            vol_flux_x(j,y_max+2+k)=top_vol_flux_x(j,top_ymin-1+2+k);
           });
       }
     }
@@ -644,7 +644,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_x",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+1+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            mass_flux_x(j,y_max+k)=top_mass_flux_x(j,top_ymin-1+k);
+            mass_flux_x(j,y_max+2+k)=top_mass_flux_x(j,top_ymin-1+2+k);
           });
       }
     }
@@ -656,7 +656,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel vol_flux_y",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            vol_flux_y(j,y_max+1+k)=top_vol_flux_y(j,top_ymin+1-1+k);
+            vol_flux_y(j,y_max+1+2+k)=top_vol_flux_y(j,top_ymin+1-1+2+k);
           });
       }
     }
@@ -668,7 +668,7 @@ void update_tile_halo_t_kernel(
         Kokkos::parallel_for("update_tile_halo_t_kernel mass_flux_y",
           Kokkos::RangePolicy<>(x_min-depth+1, x_max+depth+2),
           KOKKOS_LAMBDA (const int j) {
-            mass_flux_y(j,y_max+1+k)=top_mass_flux_y(j,top_ymin+1-1+k);
+            mass_flux_y(j,y_max+1+2+k)=top_mass_flux_y(j,top_ymin+1-1+2+k);
           });
       }
     }
