@@ -1,6 +1,8 @@
 
 default: clover_leaf
 
+export NVCC_WRAPPER_DEFAULT_COMPILER=mpic++
+
 include $(KOKKOS_PATH)/Makefile.kokkos
 
 CXX = $(NVCC_WRAPPER)
