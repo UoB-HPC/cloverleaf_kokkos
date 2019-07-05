@@ -280,7 +280,7 @@ void read_input(std::ifstream& g_in, parallel_& parallel, global_variables& glob
   double dx, dy;
   dx = (globals.grid.xmax - globals.grid.xmin)/(float)globals.grid.x_cells;
   dy = (globals.grid.ymax - globals.grid.ymin)/(float)globals.grid.y_cells;
-  for (int n = 2; n <= globals.number_of_states; ++n) {
+  for (int n = 1; n < globals.number_of_states; ++n) {
     globals.states[n].xmin += dx/100.0;
     globals.states[n].ymin += dy/100.0;
     globals.states[n].xmax -= dx/100.0;
