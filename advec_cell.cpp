@@ -66,7 +66,7 @@ void advec_cell_kernel(
           dif      =donor;
         }
         else {
-          upwind   =std::min(j+1,x_max+2);
+          upwind   =MIN(j+1,x_max+2);
           donor    =j;
           downwind =j-1;
           dif      =upwind;
@@ -85,7 +85,7 @@ void advec_cell_kernel(
         wind=1.0;
         if (diffdw <= 0.0) wind=-1.0;
         if (diffuw*diffdw > 0.0) {
-          limiter=(1.0-sigmav)*wind*std::min(std::min(fabs(diffuw),fabs(diffdw)),one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
+          limiter=(1.0-sigmav)*wind*MIN(MIN(fabs(diffuw),fabs(diffdw)),one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
         }
         else {
           limiter=0.0;
@@ -98,7 +98,7 @@ void advec_cell_kernel(
         wind=1.0;
         if (diffdw <= 0.0) wind=-1.0;
         if (diffuw*diffdw > 0.0) {
-          limiter=(1.0-sigmam)*wind*std::min(std::min(fabs(diffuw),fabs(diffdw)),one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
+          limiter=(1.0-sigmam)*wind*MIN(MIN(fabs(diffuw),fabs(diffdw)),one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
         }
         else {
           limiter=0.0;
@@ -156,7 +156,7 @@ void advec_cell_kernel(
           dif      =donor;
         }
         else {
-          upwind   =std::min(k+1,y_max+2);
+          upwind   =MIN(k+1,y_max+2);
           donor    =k;
           downwind =k-1;
           dif      =upwind;
@@ -174,7 +174,7 @@ void advec_cell_kernel(
         wind=1.0;
         if (diffdw <= 0.0) wind=-1.0;
         if (diffuw*diffdw > 0.0) {
-          limiter=(1.0-sigmav)*wind*std::min(std::min(fabs(diffuw),fabs(diffdw)),
+          limiter=(1.0-sigmav)*wind*MIN(MIN(fabs(diffuw),fabs(diffdw)),
             one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
         }
         else {
@@ -188,7 +188,7 @@ void advec_cell_kernel(
         wind=1.0;
         if (diffdw <= 0.0) wind=-1.0;
         if (diffuw*diffdw > 0.0) {
-          limiter=(1.0-sigmam)*wind*std::min(std::min(fabs(diffuw),fabs(diffdw)),
+          limiter=(1.0-sigmam)*wind*MIN(MIN(fabs(diffuw),fabs(diffdw)),
             one_by_six*(sigma3*fabs(diffuw)+sigma4*fabs(diffdw)));
         }
         else {

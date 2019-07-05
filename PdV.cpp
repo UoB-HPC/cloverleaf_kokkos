@@ -58,7 +58,7 @@ void PdV_kernel(
       double volume_change_s = volume(j,k)/(volume(j,k)+total_flux);
 
       double min_cell_volume =
-        std::min(std::min(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux,
+        MIN(MIN(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux,
           volume(j,k)+right_flux-left_flux), volume(j,k)+top_flux-bottom_flux);
  
       double recip_volume=1.0/volume(j,k);
@@ -93,7 +93,7 @@ void PdV_kernel(
       double volume_change_s=volume(j,k)/(volume(j,k)+total_flux);
 
       double min_cell_volume =
-        std::min(std::min(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux,
+        MIN(MIN(volume(j,k)+right_flux-left_flux+top_flux-bottom_flux,
           volume(j,k)+right_flux-left_flux), volume(j,k)+top_flux-bottom_flux);
  
       double recip_volume=1.0/volume(j,k);

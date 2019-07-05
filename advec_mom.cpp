@@ -117,7 +117,7 @@ void advec_mom_kernel(
           adw=fabs(vdiffdw);
           wind=1.0;
           if (vdiffdw <= 0.0) wind=-1.0;
-          limiter=wind*std::min(std::min(width*((2.0-sigma)*adw/width+(1.0+sigma)*auw/celldx(dif))/6.0,auw),adw);
+          limiter=wind*MIN(MIN(width*((2.0-sigma)*adw/width+(1.0+sigma)*auw/celldx(dif))/6.0,auw),adw);
         }
         advec_vel_s=vel1(donor,k)+(1.0-sigma)*limiter;
         mom_flux(j,k)=advec_vel_s*node_flux(j,k);
@@ -189,7 +189,7 @@ void advec_mom_kernel(
           adw=fabs(vdiffdw);
           wind=1.0;
           if (vdiffdw <= 0.0) wind=-1.0;
-          limiter=wind*std::min(std::min(width*((2.0-sigma)*adw/width+(1.0+sigma)*auw/celldy(dif))/6.0,auw),adw);
+          limiter=wind*MIN(MIN(width*((2.0-sigma)*adw/width+(1.0+sigma)*auw/celldy(dif))/6.0,auw),adw);
         }
         advec_vel_s=vel1(j,donor)+(1.0-sigma)*limiter;
         mom_flux(j,k)=advec_vel_s*node_flux(j,k);

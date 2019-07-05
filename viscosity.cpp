@@ -37,21 +37,21 @@ void viscosity_kernel(int x_min, int x_max, int y_min, int y_max,
     double pgrady2 = pgrady*pgrady;
 
     double limiter = ((0.5*(ugrad)/celldx(j))*pgradx2+(0.5*(vgrad)/celldy(k))*pgrady2+strain2*pgradx*pgrady)
-      /std::max(pgradx2+pgrady2,1.0e-16);
+      /MAX(pgradx2+pgrady2,1.0e-16);
 
     if ((limiter > 0.0) || (div >= 0.0)) {
       viscosity(j,k) = 0.0;
     } else {
       double dirx=1.0;
       if (pgradx < 0.0) dirx=-1.0;
-      pgradx = dirx*std::max(1.0e-16,fabs(pgradx));
+      pgradx = dirx*MAX(1.0e-16,fabs(pgradx));
       double diry=1.0;
       if (pgradx < 0.0) diry=-1.0;
-      pgrady = diry*std::max(1.0e-16,fabs(pgrady));
+      pgrady = diry*MAX(1.0e-16,fabs(pgrady));
       double pgrad = sqrt(pgradx*pgradx+pgrady*pgrady);
       double xgrad = fabs(celldx(j)*pgrad/pgradx);
       double ygrad = fabs(celldy(k)*pgrad/pgrady);
-      double grad  = std::min(xgrad,ygrad);
+      double grad  = MIN(xgrad,ygrad);
       double grad2 = grad*grad;
 
       viscosity(j,k)=2.0*density0(j,k)*grad2*limiter*limiter;

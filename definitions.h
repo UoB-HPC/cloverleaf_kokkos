@@ -8,6 +8,11 @@
 #define g_big   (1.0e+21)
 #define NUM_FIELDS 15
 
+// Cannot call std::min or std::max from a CUDA kernel, so use these macros instead.
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) >= (b)) ? (a) : (b))
+
+
 enum geometry_type { g_rect = 1, g_circ = 2, g_point = 3 };
 
 // In the Fortran version these are 1,2,3,4,-1, but they are used firectly to index an array in this version

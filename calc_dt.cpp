@@ -51,9 +51,9 @@ void calc_dt_kernel(
 
       double cc = soundspeed(j,k)*soundspeed(j,k);
       cc = cc+2.0*viscosity_a(j,k)/density0(j,k);
-      cc = std::max(sqrt(cc),g_small);
+      cc = MAX(sqrt(cc),g_small);
 
-      double dtct = dtc_safe*std::min(dsx,dsy)/cc;
+      double dtct = dtc_safe*MIN(dsx,dsy)/cc;
 
       double div = 0.0;
 
@@ -62,14 +62,14 @@ void calc_dt_kernel(
 
       div = div+dv2-dv1;
 
-      double dtut = dtu_safe*2.0*volume(j,k)/std::max(std::max(fabs(dv1),fabs(dv2)),g_small*volume(j,k));
+      double dtut = dtu_safe*2.0*volume(j,k)/MAX(MAX(fabs(dv1),fabs(dv2)),g_small*volume(j,k));
 
       dv1=(yvel0(j,k  )+yvel0(j+1,k  ))*yarea(j,k  );
       dv2=(yvel0(j,k+1)+yvel0(j+1,k+1))*yarea(j,k+1);
 
       div = div+dv2-dv1;
 
-      double dtvt = dtv_safe*2.0*volume(j,k)/std::max(std::max(fabs(dv1),fabs(dv2)),g_small*volume(j,k));
+      double dtvt = dtv_safe*2.0*volume(j,k)/MAX(MAX(fabs(dv1),fabs(dv2)),g_small*volume(j,k));
 
       div=div/(2.0*volume(j,k));
 
@@ -81,10 +81,10 @@ void calc_dt_kernel(
         dtdivt = g_big;
       }
 
-      dt_min_val_tmp = std::min(dt_min_val_tmp,dtct);
-      dt_min_val_tmp = std::min(dt_min_val_tmp,dtut);
-      dt_min_val_tmp = std::min(dt_min_val_tmp,dtvt);
-      dt_min_val_tmp = std::min(dt_min_val_tmp,dtdivt);
+      dt_min_val_tmp = MIN(dt_min_val_tmp,dtct);
+      dt_min_val_tmp = MIN(dt_min_val_tmp,dtut);
+      dt_min_val_tmp = MIN(dt_min_val_tmp,dtvt);
+      dt_min_val_tmp = MIN(dt_min_val_tmp,dtdivt);
 
     },
     Kokkos::Min<double>(dt_min_val));
