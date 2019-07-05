@@ -22,22 +22,22 @@ struct field_summary_functor {
 
   // Functor data member (kernel arguments)
   int x_min, x_max, y_min, y_max;
-  Kokkos::View<double**>& volume;
-  Kokkos::View<double**>& density0;
-  Kokkos::View<double**>& energy0;
-  Kokkos::View<double**>& pressure;
-  Kokkos::View<double**>& xvel0;
-  Kokkos::View<double**>& yvel0;
+  Kokkos::View<double**> volume;
+  Kokkos::View<double**> density0;
+  Kokkos::View<double**> energy0;
+  Kokkos::View<double**> pressure;
+  Kokkos::View<double**> xvel0;
+  Kokkos::View<double**> yvel0;
 
   // Constructor, which saves the kernel arguments
   field_summary_functor(
     int x_min_, int x_max_, int y_min_, int y_max_,
-    Kokkos::View<double**>& volume_,
-    Kokkos::View<double**>& density0_,
-    Kokkos::View<double**>& energy0_,
-    Kokkos::View<double**>& pressure_,
-    Kokkos::View<double**>& xvel0_,
-    Kokkos::View<double**>& yvel0) :
+    Kokkos::View<double**> volume_,
+    Kokkos::View<double**> density0_,
+    Kokkos::View<double**> energy0_,
+    Kokkos::View<double**> pressure_,
+    Kokkos::View<double**> xvel0_,
+    Kokkos::View<double**> yvel0) :
 
     x_min(x_min_), x_max(x_max_), y_min(y_min_), y_max(y_max_),
     volume(volume_),
@@ -52,12 +52,6 @@ struct field_summary_functor {
     // Kernel body
     KOKKOS_INLINE_FUNCTION
     void operator()(const int i, value_type& update) const {
-      value_type result;
-      result.vol = 0.0;
-      result.mass = 0.0;
-      result.ie = 0.0;
-      result.ke = 0.0;
-      result.press = 0.0;
 
       const int j = x_min+1 + i % (x_max-x_min+1);
       const int k = y_min+1 + i / (x_max-x_min+1);
@@ -74,17 +68,16 @@ struct field_summary_functor {
       }
       double cell_vol = volume(j,k);
       double cell_mass = cell_vol*density0(j,k);
-      result.vol   += cell_vol;
-      result.mass  += cell_mass;
-      result.ie    += cell_mass*energy0(j,k);
-      result.ke    += cell_mass*0.5*vsqrd;
-      result.press += cell_vol*pressure(j,k);
+      update.vol   += cell_vol;
+      update.mass  += cell_mass;
+      update.ie    += cell_mass*energy0(j,k);
+      update.ke    += cell_mass*0.5*vsqrd;
+      update.press += cell_vol*pressure(j,k);
 
       //
       // END  OF THE KERNEL
       //
 
-      join(update, result);
     };
 
     // Tell Kokkos how to reduce value_type
