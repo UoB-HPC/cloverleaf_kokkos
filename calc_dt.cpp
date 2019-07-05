@@ -44,7 +44,7 @@ void calc_dt_kernel(
   //   DO j=x_min,x_max
   Kokkos::MDRangePolicy<Kokkos::Rank<2>> policy({x_min+1, y_min+1}, {x_max+2, y_max+2});
   Kokkos::parallel_reduce("calc_dt", policy,
-    KOKKOS_LAMBDA (const int j, const int k, double &dt_min_val_tmp) {
+    KOKKOS_LAMBDA (const int j, const int k, double &dt_min_val) {
 
       double dsx = celldx(j);
       double dsy = celldy(k);
@@ -81,10 +81,10 @@ void calc_dt_kernel(
         dtdivt = g_big;
       }
 
-      dt_min_val_tmp = MIN(dt_min_val_tmp,dtct);
-      dt_min_val_tmp = MIN(dt_min_val_tmp,dtut);
-      dt_min_val_tmp = MIN(dt_min_val_tmp,dtvt);
-      dt_min_val_tmp = MIN(dt_min_val_tmp,dtdivt);
+      dt_min_val = MIN(dt_min_val,dtct);
+      dt_min_val = MIN(dt_min_val,dtut);
+      dt_min_val = MIN(dt_min_val,dtvt);
+      dt_min_val = MIN(dt_min_val,dtdivt);
 
     },
     Kokkos::Min<double>(dt_min_val));
