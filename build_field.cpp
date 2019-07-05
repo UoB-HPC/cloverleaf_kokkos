@@ -69,24 +69,26 @@ void build_field(global_variables& globals) {
     // are allocated. This prevents first touch overheads in the main code
     // cycle which can skew timings in the first step
 
+    // Take a reference to the lowest structure, as Kokkos device cannot necessarily chase through the structure.
+    field_type& field = globals.chunk.tiles[tile].field;
 
     // Nested loop over (t_ymin-2:t_ymax+3) and (t_xmin-2:t_xmax+3) inclusive
     Kokkos::MDRangePolicy<Kokkos::Rank<2>> loop_bounds_1({0,0}, {xrange+1,yrange+1});
 
     Kokkos::parallel_for("build_field_zero_1", loop_bounds_1, KOKKOS_LAMBDA (const int j, const int k) {
 
-      globals.chunk.tiles[tile].field.work_array1(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array2(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array3(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array4(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array5(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array6(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.work_array7(j,k) = 0.0;
+      field.work_array1(j,k) = 0.0;
+      field.work_array2(j,k) = 0.0;
+      field.work_array3(j,k) = 0.0;
+      field.work_array4(j,k) = 0.0;
+      field.work_array5(j,k) = 0.0;
+      field.work_array6(j,k) = 0.0;
+      field.work_array7(j,k) = 0.0;
 
-      globals.chunk.tiles[tile].field.xvel0(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.xvel1(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.yvel0(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.yvel1(j,k) = 0.0;
+      field.xvel0(j,k) = 0.0;
+      field.xvel1(j,k) = 0.0;
+      field.yvel0(j,k) = 0.0;
+      field.yvel1(j,k) = 0.0;
 
     });
 
@@ -95,14 +97,14 @@ void build_field(global_variables& globals) {
 
     Kokkos::parallel_for("build_field_zero_2", loop_bounds_2, KOKKOS_LAMBDA (const int j, const int k) {
 
-      globals.chunk.tiles[tile].field.density0(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.density1(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.energy0(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.energy1(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.pressure(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.viscosity(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.soundspeed(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.volume(j,k) = 0.0;
+      field.density0(j,k) = 0.0;
+      field.density1(j,k) = 0.0;
+      field.energy0(j,k) = 0.0;
+      field.energy1(j,k) = 0.0;
+      field.pressure(j,k) = 0.0;
+      field.viscosity(j,k) = 0.0;
+      field.soundspeed(j,k) = 0.0;
+      field.volume(j,k) = 0.0;
 
     });
 
@@ -111,9 +113,9 @@ void build_field(global_variables& globals) {
 
     Kokkos::parallel_for("build_field_zero_3", loop_bounds_3, KOKKOS_LAMBDA (const int j, const int k) {
 
-      globals.chunk.tiles[tile].field.vol_flux_x(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.mass_flux_x(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.xarea(j,k) = 0.0;
+      field.vol_flux_x(j,k) = 0.0;
+      field.mass_flux_x(j,k) = 0.0;
+      field.xarea(j,k) = 0.0;
     });
 
     // Nested loop over (t_ymin-2:t_ymax+3) and (t_xmin-2:t_xmax+2) inclusive
@@ -121,34 +123,34 @@ void build_field(global_variables& globals) {
 
     Kokkos::parallel_for("build_field_zero_4", loop_bounds_4, KOKKOS_LAMBDA (const int j, const int k) {
 
-      globals.chunk.tiles[tile].field.vol_flux_y(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.mass_flux_y(j,k) = 0.0;
-      globals.chunk.tiles[tile].field.yarea(j,k) = 0.0;
+      field.vol_flux_y(j,k) = 0.0;
+      field.mass_flux_y(j,k) = 0.0;
+      field.yarea(j,k) = 0.0;
     });
 
 
     // (t_xmin-2:t_xmax+2) inclusive
     Kokkos::parallel_for("build_field_zero_5", xrange, KOKKOS_LAMBDA (const int j) {
-      globals.chunk.tiles[tile].field.cellx(j) = 0.0;
-      globals.chunk.tiles[tile].field.celldx(j) = 0.0;
+      field.cellx(j) = 0.0;
+      field.celldx(j) = 0.0;
     });
 
     // (t_ymin-2:t_ymax+2) inclusive
     Kokkos::parallel_for("build_field_zero_6", yrange, KOKKOS_LAMBDA (const int k) {
-      globals.chunk.tiles[tile].field.celly(k) = 0.0;
-      globals.chunk.tiles[tile].field.celldy(k) = 0.0;
+      field.celly(k) = 0.0;
+      field.celldy(k) = 0.0;
     });
 
     // (t_xmin-2:t_xmax+3) inclusive
     Kokkos::parallel_for("build_field_zero_6", xrange+1, KOKKOS_LAMBDA (const int j) {
-      globals.chunk.tiles[tile].field.vertexx(j) = 0.0;
-      globals.chunk.tiles[tile].field.vertexdx(j) = 0.0;
+      field.vertexx(j) = 0.0;
+      field.vertexdx(j) = 0.0;
     });
 
     // (t_ymin-2:t_ymax+3) inclusive
     Kokkos::parallel_for("build_field_zero_7", yrange+1, KOKKOS_LAMBDA (const int k) {
-      globals.chunk.tiles[tile].field.vertexy(k) = 0.0;
-      globals.chunk.tiles[tile].field.vertexdy(k) = 0.0;
+      field.vertexy(k) = 0.0;
+      field.vertexdy(k) = 0.0;
     });
 
   }

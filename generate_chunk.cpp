@@ -68,14 +68,18 @@ void generate_chunk(const int tile, global_variables& globals) {
 
   size_t xrange = (x_max+2) - (x_min-2) + 1;
   size_t yrange = (y_max+2) - (y_min-2) + 1;
+
+  // Take a reference to the lowest structure, as Kokkos device cannot necessarily chase through the structure.
+  field_type& field = globals.chunk.tiles[tile].field;
+
   Kokkos::MDRangePolicy<Kokkos::Rank<2>> xyrange_policy({0,0}, {xrange, yrange});
 
   // State 1 is always the background state
   Kokkos::parallel_for(xyrange_policy, KOKKOS_LAMBDA (const int j, const int k) {
-    globals.chunk.tiles[tile].field.energy0(j,k) = state_energy(0);
-    globals.chunk.tiles[tile].field.density0(j,k) = state_density(0);
-    globals.chunk.tiles[tile].field.xvel0(j,k) = state_xvel(0);
-    globals.chunk.tiles[tile].field.yvel0(j,k) = state_yvel(0);
+    field.energy0(j,k) = state_energy(0);
+    field.density0(j,k) = state_density(0);
+    field.xvel0(j,k) = state_xvel(0);
+    field.yvel0(j,k) = state_yvel(0);
   });
 
   for (int state = 1; state < globals.number_of_states; ++state) {
@@ -85,38 +89,38 @@ void generate_chunk(const int tile, global_variables& globals) {
       double y_cent = state_ymin(state);
 
       if (state_geometry(state) == g_rect) {
-        if (globals.chunk.tiles[tile].field.vertexx(j+1) >= state_xmin(state) && globals.chunk.tiles[tile].field.vertexx(j) < state_xmax(state)) {
-          if (globals.chunk.tiles[tile].field.vertexy(k+1) >= state_ymin(state) && globals.chunk.tiles[tile].field.vertexy(k) < state_ymax(state)) {
-            globals.chunk.tiles[tile].field.energy0(j,k) = state_energy(state);
-            globals.chunk.tiles[tile].field.density0(j,k) = state_density(state);
+        if (field.vertexx(j+1) >= state_xmin(state) && field.vertexx(j) < state_xmax(state)) {
+          if (field.vertexy(k+1) >= state_ymin(state) && field.vertexy(k) < state_ymax(state)) {
+            field.energy0(j,k) = state_energy(state);
+            field.density0(j,k) = state_density(state);
             for (int kt = k; kt <= k+1; ++kt) {
               for (int jt = j; jt <= j+1; ++jt) {
-                globals.chunk.tiles[tile].field.xvel0(jt,kt) = state_xvel(state);
-                globals.chunk.tiles[tile].field.yvel0(jt,kt) = state_yvel(state);
+                field.xvel0(jt,kt) = state_xvel(state);
+                field.yvel0(jt,kt) = state_yvel(state);
               }
             }
           }
         }
       } else if (state_geometry(state) ==  g_circ) {
-        double radius=sqrt((globals.chunk.tiles[tile].field.cellx(j)-x_cent)*(globals.chunk.tiles[tile].field.cellx(j)-x_cent)+(globals.chunk.tiles[tile].field.celly(k)-y_cent)*(globals.chunk.tiles[tile].field.celly(k)-y_cent));
+        double radius=sqrt((field.cellx(j)-x_cent)*(field.cellx(j)-x_cent)+(field.celly(k)-y_cent)*(field.celly(k)-y_cent));
         if (radius <= state_radius(state)) {
-          globals.chunk.tiles[tile].field.energy0(j,k) = state_energy(state);
-          globals.chunk.tiles[tile].field.density0(j,k) = state_density(state);
+          field.energy0(j,k) = state_energy(state);
+          field.density0(j,k) = state_density(state);
             for (int kt = k; kt <= k+1; ++kt) {
               for (int jt = j; jt <= j+1; ++jt) {
-              globals.chunk.tiles[tile].field.xvel0(jt,kt) = state_xvel(state);
-              globals.chunk.tiles[tile].field.yvel0(jt,kt) = state_yvel(state);
+              field.xvel0(jt,kt) = state_xvel(state);
+              field.yvel0(jt,kt) = state_yvel(state);
             }
           }
         }
       } else if (state_geometry(state) == g_point) {
-        if (globals.chunk.tiles[tile].field.vertexx(j) == x_cent && globals.chunk.tiles[tile].field.vertexy(k) == y_cent) {
-          globals.chunk.tiles[tile].field.energy0(j,k) = state_energy(state);
-          globals.chunk.tiles[tile].field.density0(j,k) = state_density(state);
+        if (field.vertexx(j) == x_cent && field.vertexy(k) == y_cent) {
+          field.energy0(j,k) = state_energy(state);
+          field.density0(j,k) = state_density(state);
           for (int kt = k; kt <= k+1; ++kt) {
             for (int jt = j; jt <= j+1; ++jt) {
-              globals.chunk.tiles[tile].field.xvel0(jt,kt) = state_xvel(state);
-              globals.chunk.tiles[tile].field.yvel0(jt,kt) = state_yvel(state);
+              field.xvel0(jt,kt) = state_xvel(state);
+              field.yvel0(jt,kt) = state_yvel(state);
             }
           }
         }

@@ -42,33 +42,36 @@ void initialise_chunk(const int tile, global_variables& globals) {
   size_t xrange = (x_max+3) - (x_min-2) + 1;
   size_t yrange = (y_max+3) - (y_min-2) + 1;
 
+  // Take a reference to the lowest structure, as Kokkos device cannot necessarily chase through the structure.
+  field_type& field = globals.chunk.tiles[tile].field;
+
   Kokkos::parallel_for(xrange, KOKKOS_LAMBDA (const int j) {
-    globals.chunk.tiles[tile].field.vertexx(j) = xmin + dx*(double)(j-1-x_min);
-    globals.chunk.tiles[tile].field.vertexdx(j) = dx;
+    field.vertexx(j) = xmin + dx*(double)(j-1-x_min);
+    field.vertexdx(j) = dx;
   });
 
   Kokkos::parallel_for(yrange, KOKKOS_LAMBDA (const int k) {
-    globals.chunk.tiles[tile].field.vertexy(k) = ymin + dy*(double)(k-1-y_min);
-    globals.chunk.tiles[tile].field.vertexdy(k) = dy;
+    field.vertexy(k) = ymin + dy*(double)(k-1-y_min);
+    field.vertexdy(k) = dy;
   });
 
   xrange = (x_max+2) - (x_min-2) + 1;
   yrange = (y_max+2) - (y_min-2) + 1;
 
   Kokkos::parallel_for(xrange, KOKKOS_LAMBDA (const int j) {
-    globals.chunk.tiles[tile].field.cellx(j) = 0.5*(globals.chunk.tiles[tile].field.vertexx(j) + globals.chunk.tiles[tile].field.vertexx(j+1));
-    globals.chunk.tiles[tile].field.celldx(j) = dx;
+    field.cellx(j) = 0.5*(field.vertexx(j) + field.vertexx(j+1));
+    field.celldx(j) = dx;
   });
 
   Kokkos::parallel_for(yrange, KOKKOS_LAMBDA (const int k) {
-    globals.chunk.tiles[tile].field.celly(k) = 0.5*(globals.chunk.tiles[tile].field.vertexy(k) + globals.chunk.tiles[tile].field.vertexy(k+1));
-    globals.chunk.tiles[tile].field.celldy(k) = dy;
+    field.celly(k) = 0.5*(field.vertexy(k) + field.vertexy(k+1));
+    field.celldy(k) = dy;
   });
 
   Kokkos::parallel_for(Kokkos::MDRangePolicy<Kokkos::Rank<2>>({0,0}, {xrange, yrange}), KOKKOS_LAMBDA (const int j, const int k) {
-    globals.chunk.tiles[tile].field.volume(j,k) = dx*dy;
-    globals.chunk.tiles[tile].field.xarea(j,k) = globals.chunk.tiles[tile].field.celldy(k);
-    globals.chunk.tiles[tile].field.yarea(j,k) = globals.chunk.tiles[tile].field.celldx(j);
+    field.volume(j,k) = dx*dy;
+    field.xarea(j,k) = field.celldy(k);
+    field.yarea(j,k) = field.celldx(j);
   });
 }
 
