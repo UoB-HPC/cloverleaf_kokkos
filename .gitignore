@@ -1,7 +1,14 @@
 .DS_Store
 .*.swp
 *.o
+*.a
+*.tmp
 clover_leaf
 clover.visit
 *.vtk
+.directory
+
+clover.in
+clover.out
+KokkosCore_config.h
 
