@@ -31,6 +31,7 @@
 #include <iostream>
 #include <cstring>
 #include <iterator>
+#include <vector>
 
 extern std::ostream g_out;
 
