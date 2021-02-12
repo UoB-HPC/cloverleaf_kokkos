@@ -12,3 +12,6 @@ clover.in
 clover.out
 KokkosCore_config.h
 
+.idea/
+cmake-build-*/
+build*/
