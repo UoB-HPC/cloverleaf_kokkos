@@ -83,11 +83,11 @@ target_compile_options(clover_leaf
         -Wall
         -Wextra
         -Wcast-align
-        -Wfatal-errors
+#        -Wfatal-errors
         -Werror=return-type
         -Wno-unused-parameter
         -Wno-unused-variable
-        -Wno-ignored-attributes
+#        -Wno-ignored-attributes
 
         ${EXTRA_FLAGS}
         )
