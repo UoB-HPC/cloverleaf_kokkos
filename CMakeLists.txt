@@ -94,7 +94,7 @@ target_compile_options(clover_leaf
 
 
 set(DEBUG_OPTIONS -O2 -fno-omit-frame-pointer ${CXX_EXTRA_FLAGS})
-set(RELEASE_OPTIONS -O3 -ffast-math ${CXX_EXTRA_FLAGS}) #nvcc can't handle -Ofast, must be -O<n>
+set(RELEASE_OPTIONS -O3 ${CXX_EXTRA_FLAGS}) #nvcc can't handle -Ofast, must be -O<n>
 
 target_link_libraries(clover_leaf PUBLIC Kokkos::kokkos ${MPI_C_LIB})
 
