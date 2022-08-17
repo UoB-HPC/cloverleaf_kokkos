@@ -34,55 +34,55 @@ void build_field(global_variables& globals) {
     const size_t yrange = (globals.chunk.tiles[tile].t_ymax+2) - (globals.chunk.tiles[tile].t_ymin-2) + 1;
 
     // (t_xmin-2:t_xmax+2, t_ymin-2:t_ymax+2)
-    new(&globals.chunk.tiles[tile].field.density0) Kokkos::View<double**>("density0", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.density1) Kokkos::View<double**>("density1", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.energy0) Kokkos::View<double**>("energy0", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.energy1) Kokkos::View<double**>("energy1", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.pressure) Kokkos::View<double**>("pressure", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.viscosity) Kokkos::View<double**>("viscosity", xrange, yrange);
-    new(&globals.chunk.tiles[tile].field.soundspeed) Kokkos::View<double**>("soundspeed", xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.density0) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("density0"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.density1) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("density1"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.energy0) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("energy0"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.energy1) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("energy1"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.pressure) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("pressure"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.viscosity) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("viscosity"), xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.soundspeed) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("soundspeed"), xrange, yrange);
 
     // (t_xmin-2:t_xmax+3, t_ymin-2:t_ymax+3)
-    new(&globals.chunk.tiles[tile].field.xvel0) Kokkos::View<double**>("xvel0", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.xvel1) Kokkos::View<double**>("xvel1", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.yvel0) Kokkos::View<double**>("yvel0", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.yvel1) Kokkos::View<double**>("yvel1", xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.xvel0) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("xvel0"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.xvel1) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("xvel1"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.yvel0) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("yvel0"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.yvel1) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("yvel1"), xrange+1, yrange+1);
 
     // (t_xmin-2:t_xmax+3, t_ymin-2:t_ymax+2)
-    new(&globals.chunk.tiles[tile].field.vol_flux_x) Kokkos::View<double**>("vol_flux_x", xrange+1, yrange);
-    new(&globals.chunk.tiles[tile].field.mass_flux_x) Kokkos::View<double**>("mass_flux_x", xrange+1, yrange);
+    new(&globals.chunk.tiles[tile].field.vol_flux_x) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("vol_flux_x"), xrange+1, yrange);
+    new(&globals.chunk.tiles[tile].field.mass_flux_x) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("mass_flux_x"), xrange+1, yrange);
     // (t_xmin-2:t_xmax+2, t_ymin-2:t_ymax+3)
-    new(&globals.chunk.tiles[tile].field.vol_flux_y) Kokkos::View<double**>("vol_flux_y", xrange, yrange+1);
-    new(&globals.chunk.tiles[tile].field.mass_flux_y) Kokkos::View<double**>("mass_flux_y", xrange, yrange+1);
+    new(&globals.chunk.tiles[tile].field.vol_flux_y) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("vol_flux_y"), xrange, yrange+1);
+    new(&globals.chunk.tiles[tile].field.mass_flux_y) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("mass_flux_y"), xrange, yrange+1);
 
     // (t_xmin-2:t_xmax+3, t_ymin-2:t_ymax+3)
-    new(&globals.chunk.tiles[tile].field.work_array1) Kokkos::View<double**>("work_array1", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array2) Kokkos::View<double**>("work_array2", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array3) Kokkos::View<double**>("work_array3", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array4) Kokkos::View<double**>("work_array4", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array5) Kokkos::View<double**>("work_array5", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array6) Kokkos::View<double**>("work_array6", xrange+1, yrange+1);
-    new(&globals.chunk.tiles[tile].field.work_array7) Kokkos::View<double**>("work_array7", xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array1) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array1"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array2) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array2"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array3) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array3"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array4) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array4"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array5) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array5"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array6) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array6"), xrange+1, yrange+1);
+    new(&globals.chunk.tiles[tile].field.work_array7) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("work_array7"), xrange+1, yrange+1);
 
     // (t_xmin-2:t_xmax+2)
-    new(&globals.chunk.tiles[tile].field.cellx) Kokkos::View<double*>("cellx", xrange);
-    new(&globals.chunk.tiles[tile].field.celldx) Kokkos::View<double*>("celldx", xrange);
+    new(&globals.chunk.tiles[tile].field.cellx) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("cellx"), xrange);
+    new(&globals.chunk.tiles[tile].field.celldx) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("celldx"), xrange);
     // (t_ymin-2:t_ymax+2)
-    new(&globals.chunk.tiles[tile].field.celly) Kokkos::View<double*>("celly", yrange);
-    new(&globals.chunk.tiles[tile].field.celldy) Kokkos::View<double*>("celldy", yrange);
+    new(&globals.chunk.tiles[tile].field.celly) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("celly"), yrange);
+    new(&globals.chunk.tiles[tile].field.celldy) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("celldy"), yrange);
     // (t_xmin-2:t_xmax+3)
-    new(&globals.chunk.tiles[tile].field.vertexx) Kokkos::View<double*>("vertexx", xrange+1);
-    new(&globals.chunk.tiles[tile].field.vertexdx) Kokkos::View<double*>("vertexdx", xrange+1);
+    new(&globals.chunk.tiles[tile].field.vertexx) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("vertexx"), xrange+1);
+    new(&globals.chunk.tiles[tile].field.vertexdx) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("vertexdx"), xrange+1);
     // (t_ymin-2:t_ymax+3)
-    new(&globals.chunk.tiles[tile].field.vertexy) Kokkos::View<double*>("vertexy", yrange+1);
-    new(&globals.chunk.tiles[tile].field.vertexdy) Kokkos::View<double*>("vertexdy", yrange+1);
+    new(&globals.chunk.tiles[tile].field.vertexy) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("vertexy"), yrange+1);
+    new(&globals.chunk.tiles[tile].field.vertexdy) Kokkos::View<double*>(Kokkos::ViewAllocateWithoutInitializing("vertexdy"), yrange+1);
 
     // (t_xmin-2:t_xmax+2, t_ymin-2:t_ymax+2)
-    new(&globals.chunk.tiles[tile].field.volume) Kokkos::View<double**>("volume", xrange, yrange);
+    new(&globals.chunk.tiles[tile].field.volume) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("volume"), xrange, yrange);
     // (t_xmin-2:t_xmax+3, t_ymin-2:t_ymax+2)
-    new(&globals.chunk.tiles[tile].field.xarea) Kokkos::View<double**>("xarea", xrange+1, yrange);
+    new(&globals.chunk.tiles[tile].field.xarea) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("xarea"), xrange+1, yrange);
     // (t_xmin-2:t_xmax+2, t_ymin-2:t_ymax+3)
-    new(&globals.chunk.tiles[tile].field.yarea) Kokkos::View<double**>("yarea", xrange, yrange+1);
+    new(&globals.chunk.tiles[tile].field.yarea) Kokkos::View<double**>(Kokkos::ViewAllocateWithoutInitializing("yarea"), xrange, yrange+1);
 
     // Zeroing isn't strictly neccessary but it ensures physical pages
     // are allocated. This prevents first touch overheads in the main code
