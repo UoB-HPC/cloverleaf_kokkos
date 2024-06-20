@@ -1,4 +1,7 @@
 
+> [!WARNING]  
+> Superseded by <https://github.com/UoB-HPC/CloverLeaf>, which contains a Kokkos implementation, along with many other models.
+
 # A Kokkos port of CloverLeaf
 
 This is a port of [CloverLeaf](https://github.com/uk-mac/cloverleaf_ref) from MPI+OpenMP Fortran to MPI+Kokkos C++.
